@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Documentação — MEI → ME + Protocolo de Fornecedores</title>
+<style>
+  :root{
+    --royal:#1a2f8f;
+    --royal-deep:#0d1c52;
+    --paper:#ffffff;
+    --ink:#0a0a0a;
+    --highlight:#ffe14d;
+    --highlight-soft:#fff6cc;
+    --line:#e2e6f7;
+    --gray:#444;
+    --gold:#c99a00;
+    --neutral:#7a8199;
+    --red:#b3121b;
+    --sidebar-width:320px;
+    --topbar-height:72px;
+  }
+
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  html, body{overflow-x:hidden;}
+  body{
+    margin:0;
+    background:var(--royal);
+    background-image:linear-gradient(180deg, var(--royal) 0%, var(--royal-deep) 100%);
+    font-family:-apple-system, "Segoe UI", Arial, sans-serif;
+    color:var(--ink);
+    line-height:1.5;
+  }
+
+  img, table, iframe{max-width:100%;}
+  a{
+    color:var(--royal-deep);
+    font-weight:900;
+    text-decoration:underline;
+    text-decoration-thickness:2px;
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+  a:hover{color:#000;}
+  mark{background:var(--highlight);color:var(--ink);font-weight:900;padding:1px 5px;border-radius:3px;}
+  table{width:100%;border-collapse:collapse;margin-top:8px;}
+  th, td{text-align:left;padding:9px 8px;font-weight:700;font-size:13.5px;border-bottom:1px solid var(--line);vertical-align:top;}
+  th{font-weight:900;font-size:11.5px;text-transform:uppercase;color:#555;}
+  td.val{font-weight:900;color:var(--royal-deep);white-space:nowrap;}
+  ol, ul{margin:0;padding-left:20px;}
+  li{font-weight:700;font-size:15px;margin-bottom:10px;}
+  li:last-child{margin-bottom:0;}
+
+  header h1,
+  .card h2,
+  .platform h3,
+  .brand h1{
+    overflow-wrap:anywhere;
+    word-break:break-word;
+  }
+
+  .card,
+  .platform,
+  .option,
+  .flag,
+  .rule,
+  .qbox,
+  .explain,
+  .example,
+  .warn,
+  .cost,
+  .alertbanner{
+    overflow:hidden;
+  }
+
+  .table-scroll{
+    width:100%;
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+
+  .table-scroll table{
+    min-width:620px;
+  }
+
+  .layout{
+    min-height:100vh;
+  }
+
+  .sidebar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:var(--sidebar-width);
+    height:100vh;
+    padding:24px 18px 24px;
+    background:rgba(13,28,82,.96);
+    border-right:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(10px);
+    overflow-y:auto;
+    overflow-x:hidden;
+    z-index:100;
+  }
+
+  .brand{
+    color:#fff;
+    margin-bottom:20px;
+  }
+  .brand .eyebrow{
+    display:inline-block;
+    font-size:11px;
+    font-weight:900;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:#cfd6ff;
+    margin-bottom:8px;
+  }
+  .brand h1{
+    margin:0 0 8px;
+    font-size:20px;
+    line-height:1.2;
+    font-weight:900;
+  }
+  .brand p{
+    margin:0;
+    color:#cfd6ff;
+    font-size:13px;
+    font-weight:600;
+  }
+
+  .nav-section{margin-top:22px;}
+  .nav-title{
+    color:#ffe14d;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.08em;
+    font-weight:900;
+    margin:0 0 10px;
+  }
+  .nav-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
+  .nav-list a{
+    display:block;
+    color:#fff;
+    text-decoration:none;
+    font-size:13.5px;
+    font-weight:800;
+    padding:10px 12px;
+    border-radius:8px;
+    border:1px solid transparent;
+    background:rgba(255,255,255,.04);
+  }
+  .nav-list a:hover,
+  .nav-list a:focus-visible{
+    background:rgba(255,255,255,.11);
+    border-color:rgba(255,255,255,.14);
+    color:#fff;
+    outline:none;
+  }
+
+  .mobile-topbar{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:1200;
+    height:var(--topbar-height);
+    padding:14px 16px;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:rgba(13,28,82,.98);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid rgba(255,255,255,.12);
+  }
+  .mobile-topbar .title{
+    color:#fff;
+    font-size:15px;
+    font-weight:900;
+    line-height:1.2;
+  }
+  .menu-toggle{
+    min-width:44px;
+    min-height:44px;
+    border:none;
+    border-radius:10px;
+    background:#fff;
+    color:var(--royal-deep);
+    font-weight:900;
+    cursor:pointer;
+    position:relative;
+    z-index:1300;
+  }
+
+  .content{
+    margin-left:var(--sidebar-width);
+    min-height:100vh;
+    padding:32px 20px 90px;
+  }
+  .wrap{max-width:980px;margin:0 auto;}
+
+  header{text-align:center;color:#fff;margin-bottom:26px;}
+  header h1{font-size:26px;font-weight:900;margin:0 0 6px;}
+  header p{margin:0;font-weight:600;color:#cfd6ff;font-size:14px;}
+
+  .doc-section{margin-bottom:34px;scroll-margin-top:24px;}
+  .doc-label{
+    display:inline-block;
+    margin-bottom:14px;
+    background:rgba(255,255,255,.12);
+    color:#fff;
+    border:1px solid rgba(255,255,255,.18);
+    border-radius:999px;
+    padding:7px 12px;
+    font-size:12px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+  }
+
+  .card{
+    background:var(--paper);
+    border-radius:10px;
+    padding:22px 22px 24px;
+    margin-bottom:20px;
+    box-shadow:0 6px 18px rgba(0,0,0,0.25);
+    border:2px solid var(--royal-deep);
+  }
+  .card h2{
+    font-size:19px;
+    font-weight:900;
+    margin:0 0 4px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .tag{display:inline-block;background:var(--royal);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:5px;}
+  .tag.red{background:var(--red);}
+  .card .sub{font-weight:700;font-size:13.5px;color:var(--gray);margin:0 0 12px;}
+  .explain{
+    background:#f4f6ff;border-left:4px solid var(--royal);border-radius:6px;
+    padding:10px 14px;margin-bottom:14px;font-weight:600;font-size:14px;color:#222;
+  }
+  .explain b{font-weight:900;}
+  li p.detail{font-weight:600;font-size:13.5px;color:var(--gray);margin:3px 0 0;}
+  .cost{
+    background:var(--highlight-soft);border-left:5px solid var(--highlight);border-radius:6px;
+    padding:12px 14px;margin-top:14px;font-weight:800;font-size:14px;
+  }
+  .cost span.lbl{display:block;font-weight:900;font-size:12px;text-transform:uppercase;color:#7a5b00;margin-bottom:6px;}
+  .cost table{width:100%;}
+  .cost td{padding:3px 0;font-weight:700;font-size:13.5px;border:none;}
+  .cost td.v{text-align:right;font-weight:900;}
+  .example{
+    background:#eef1fd;border-radius:8px;padding:14px 16px;margin-top:12px;
+    font-weight:700;font-size:14px;
+  }
+  .example .title{font-weight:900;font-size:12px;text-transform:uppercase;color:var(--royal-deep);margin-bottom:6px;}
+  .warn{background:#1a1a1a;color:#fff;border-radius:8px;padding:14px 16px;font-weight:800;font-size:14px;margin-top:14px;}
+  .warn b{color:var(--highlight);}
+  .glossary dt{font-weight:900;font-size:14.5px;margin-top:12px;color:var(--royal-deep);}
+  .glossary dt:first-child{margin-top:0;}
+  .glossary dd{font-weight:600;font-size:14px;margin:2px 0 0;color:#222;}
+  .alertbanner{
+    background:var(--red);color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:22px;
+    font-weight:800;font-size:15px;border:3px solid #7a0d13;
+  }
+  .alertbanner .h{font-size:13px;text-transform:uppercase;letter-spacing:.5px;font-weight:900;color:var(--highlight);margin-bottom:6px;}
+  .flag{
+    background:#fff3f3;border:2px solid var(--red);border-radius:8px;padding:12px 15px;margin-bottom:10px;
+    font-weight:800;font-size:14.5px;display:flex;gap:10px;align-items:flex-start;
+  }
+  .flag:last-child{margin-bottom:0;}
+  .flagicon{
+    background:var(--red);color:#fff;font-weight:900;font-size:13px;min-width:26px;height:26px;
+    border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .flag p.why{font-weight:600;font-size:13px;color:var(--gray);margin:4px 0 0;}
+  .option{border-radius:8px;padding:14px 16px;margin-bottom:12px;font-weight:700;font-size:14.5px;}
+  .option:last-child{margin-bottom:0;}
+  .option .lbl{display:inline-block;font-weight:900;font-size:11.5px;text-transform:uppercase;padding:3px 9px;border-radius:5px;margin-bottom:8px;}
+  .ideal{background:#fffaf0;border:2px solid var(--gold);}
+  .ideal .lbl{background:var(--gold);color:#fff;}
+  .secundaria{background:#f5f6fa;border:2px solid var(--neutral);}
+  .secundaria .lbl{background:var(--neutral);color:#fff;}
+  .option p.why{font-weight:600;font-size:13px;color:var(--gray);margin:6px 0 0;}
+  .platform{
+    border-radius:8px;padding:14px 16px;margin-bottom:14px;border:2px solid var(--royal-deep);background:#fbfbff;
+  }
+  .platform:last-child{margin-bottom:0;}
+  .platform h3{margin:0 0 8px;font-size:15.5px;font-weight:900;}
+  .platform ul{margin:0;padding-left:18px;}
+  .platform li{font-weight:600;font-size:13.5px;margin-bottom:5px;}
+  .platform li b{font-weight:900;}
+  .platform li:last-child{margin-bottom:0;}
+  .rule{
+    background:#eef1fd;border-radius:8px;padding:13px 16px;margin-bottom:10px;
+    font-weight:700;font-size:14.5px;display:flex;gap:10px;align-items:flex-start;
+  }
+  .rule:last-child{margin-bottom:0;}
+  .rnum{
+    background:var(--royal);
+    color:#fff;
+    font-weight:900;
+    font-size:13px;
+    min-width:24px;
+    height:24px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+    margin-top:1px;
+  }
+  .qbox{background:#eef1fd;border-radius:8px;padding:13px 16px;margin-bottom:10px;font-weight:700;font-size:14.5px;}
+  .qbox:last-child{margin-bottom:0;}
+  .footer-note{text-align:center;color:#cfd6ff;font-weight:700;font-size:12px;margin-top:24px;}
+
+  .content-anchor{
+    display:block;
+    margin-top:-6px;
+    padding-top:6px;
+  }
+
+  @media (max-width: 980px){
+    :root{
+      --topbar-height:64px;
+    }
+
+    .sidebar{
+      top:0;
+      left:0;
+      width:min(88vw, 340px);
+      height:100dvh;
+      padding:calc(var(--topbar-height) + 14px) 14px 24px;
+      z-index:1100;
+      transform:translateX(-110%);
+      transition:transform .25s ease;
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+      border-right:1px solid rgba(255,255,255,.12);
+    }
+
+    body.menu-open .sidebar{
+      transform:translateX(0);
+    }
+
+    .mobile-topbar{
+      display:flex;
+    }
+
+    .content{
+      margin-left:0;
+      width:100%;
+      min-height:auto;
+      padding:calc(var(--topbar-height) + 16px) 12px 64px;
+    }
+
+    .wrap{
+      max-width:100%;
+    }
+
+    header{
+      margin:8px 0 20px;
+      padding:0 2px;
+    }
+
+    header h1{
+      font-size:24px;
+      line-height:1.15;
+    }
+
+    header p{
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    .doc-section{
+      margin-bottom:24px;
+      scroll-margin-top:calc(var(--topbar-height) + 14px);
+    }
+
+    .doc-label{
+      font-size:11px;
+      padding:6px 10px;
+      margin-bottom:10px;
+    }
+
+    .card{
+      padding:16px 14px 18px;
+      margin-bottom:16px;
+      border-radius:10px;
+    }
+
+    .card h2{
+      font-size:17px;
+      line-height:1.2;
+      align-items:flex-start;
+      flex-wrap:wrap;
+      gap:6px;
+    }
+
+    .tag{
+      flex-shrink:0;
+    }
+
+    .card .sub,
+    .explain,
+    .example,
+    .warn,
+    .option,
+    .flag,
+    .qbox,
+    .rule,
+    .glossary dd{
+      font-size:13.5px;
+      line-height:1.5;
+    }
+
+    li{
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    li p.detail,
+    .flag p.why,
+    .option p.why{
+      font-size:12.8px;
+      line-height:1.45;
+    }
+
+    th, td{
+      font-size:12.5px;
+      padding:8px 6px;
+    }
+
+    .cost{
+      padding:12px 12px;
+    }
+
+    .cost td{
+      font-size:12.5px;
+    }
+
+    .platform{
+      padding:13px 13px 14px;
+    }
+
+    .platform h3{
+      font-size:15px;
+      line-height:1.25;
+    }
+
+    .rule,
+    .flag{
+      gap:8px;
+    }
+
+    .footer-note{
+      font-size:11.5px;
+      line-height:1.45;
+      padding:0 4px;
+    }
+  }
+
+  @media (max-width: 640px){
+    :root{
+      --topbar-height:60px;
+    }
+
+    body{
+      line-height:1.42;
+    }
+
+    .mobile-topbar{
+      height:var(--topbar-height);
+      padding:8px 10px 8px 12px;
+    }
+
+    .mobile-topbar .title{
+      font-size:14px;
+      line-height:1.2;
+      max-width:70%;
+    }
+
+    .menu-toggle{
+      min-width:44px;
+      min-height:44px;
+      padding:0 12px;
+      border-radius:10px;
+      font-size:13px;
+    }
+
+    .sidebar{
+      width:min(92vw, 320px);
+      padding:calc(var(--topbar-height) + 12px) 12px 22px;
+    }
+
+    .brand{
+      margin-bottom:16px;
+    }
+
+    .brand h1{
+      font-size:17px;
+      line-height:1.2;
+    }
+
+    .brand p{
+      font-size:12.5px;
+      line-height:1.4;
+    }
+
+    .nav-title{
+      font-size:10px;
+      margin-bottom:8px;
+    }
+
+    .nav-list{
+      gap:5px;
+    }
+
+    .nav-list a{
+      font-size:12.5px;
+      line-height:1.35;
+      padding:10px 10px;
+      border-radius:8px;
+    }
+
+    .content{
+      padding:calc(var(--topbar-height) + 14px) 10px 56px;
+    }
+
+    header h1{
+      font-size:21px;
+    }
+
+    header p{
+      font-size:12.5px;
+    }
+
+    .doc-section{
+      margin-bottom:20px;
+      scroll-margin-top:calc(var(--topbar-height) + 12px);
+    }
+
+    .card{
+      padding:14px 12px 16px;
+      border-radius:9px;
+    }
+
+    .card h2{
+      font-size:16px;
+    }
+
+    .tag{
+      font-size:10px;
+      padding:3px 7px;
+    }
+
+    .card .sub{
+      font-size:12.8px;
+    }
+
+    .glossary dt{
+      font-size:13.5px;
+    }
+
+    .glossary dd,
+    .explain,
+    .example,
+    .warn,
+    .option,
+    .flag,
+    .qbox,
+    .rule,
+    .alertbanner{
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    li{
+      font-size:13.5px;
+    }
+
+    li p.detail,
+    .flag p.why,
+    .option p.why{
+      font-size:12.4px;
+    }
+
+    .flagicon,
+    .rnum{
+      min-width:22px;
+      width:22px;
+      height:22px;
+      font-size:11px;
+    }
+
+    .platform{
+      padding:12px;
+    }
+
+    .platform h3{
+      font-size:14px;
+    }
+
+    .platform ul{
+      padding-left:16px;
+    }
+
+    .cost span.lbl,
+    .example .title,
+    th{
+      font-size:10.5px;
+    }
+
+    th, td{
+      font-size:12px;
+      padding:7px 5px;
+    }
+
+    .table-scroll{
+      margin-top:6px;
+      border-radius:8px;
+    }
+
+    .table-scroll table{
+      min-width:560px;
+    }
+
+    .footer-note{
+      font-size:11px;
+      margin-top:18px;
+    }
+  }
+</style>
+</head>
+<body>
+<div class="mobile-topbar">
+  <div class="title">Documentação</div>
+  <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="sidebarNav">Menu</button>
+</div>
+
+<div class="layout">
+  <aside class="sidebar" id="sidebarNav">
+    <div class="brand">
+      <div class="eyebrow">Docs</div>
+      <h1>MEI → ME + Protocolo de Fornecedores</h1>
+      
+    </div>
+
+    <div class="nav-section">
+      
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#mei-header">Capa</a></li>
+          <li><a href="#glossario">MEI → ME — Guia completo de referência</a></li>
+          <li><a href="#passo-1">Passo 1 Abrir o MEI</a></li>
+          <li><a href="#passo-2">Passo 2 Inscrição Estadual para vender o produto</a></li>
+          <li><a href="#passo-3">Passo 3 Credenciamento para emitir NF-e (nota de produto)</a></li>
+          <li><a href="#controle">Teto do MEI </a></li>
+          <li><a href="#passo-4">Migrar para ME</a></li>
+          <li><a href="#imposto">Imposto</a></li>
+          <li><a href="#protecao">Proteção para contador</a></li>
+          <li><a href="#links-oficiais">Links oficiais</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-title">Protocolo de Fornecedores e Plataformas</div>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#protocolo-header">Capa</a></li>
+          <li><a href="#alerta">Alerta</a></li>
+          <li><a href="#checklist">Checklist para fornecedor novo</a></li>
+          <li><a href="#plataformas">Plataformas</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="#perguntas">Perguntas para fornecedores</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="nav-title">Logística, Envio e Etiquetas</div>
+    <div class="nav-section">
+      
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#logistica-envio-etiquetas">Logista para envio</a></li>
+          <li><a href="#coleta-modelo-padrao">Modelo padrão de coleta</a></li>
+          <li><a href="#pontos-coleta-sao-mateus">Pontos de coleta próximos</a></li>
+          <li><a href="#base-legal-trocas-devolucao">Base legal de trocas</a></li>
+          <li><a href="#politica-recomendada-loja">Política recomendada</a></li>
+          <li><a href="#fluxo-equipe-devolucao">Fluxo da equipe</a></li>
+          <li><a href="#estrategia">Estratégia</a></li>
+          <li><a href="#a-seu-favor">A Seu Favor</a></li>
+          <li><a href="#alertas">Alertas</a></li>
+          <li><a href="#equipamento">Equipamento impressora</a></li>
+          <li><a href="#outras-plataformas-logistica">Outras plataformas</a></li>
+          <li><a href="#vale-conhecer">Vale conhecer</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+  <main class="content">
+    <div class="wrap">
+
+      <section class="doc-section" id="mei-header">
+        
+        <header>
+          <h1>MEI → ME — Guia completo de referência</h1>
+          <p>Revenda de moda feminina · São Paulo (SP) · atualizado com base em jul/2026</p>
+        </header>
+      </section>
+
+      <section class="doc-section" id="glossario">
+        <div class="card glossary">
+          <h2><span class="tag">GLOSSÁRIO</span> Termos que vão aparecer o tempo todo</h2>
+          <dl>
+            <dt>CNPJ</dt>
+            <dd>É o "CPF da empresa". Todo MEI e toda ME tem um. Ele identifica o negócio perante o governo.</dd>
+            <dt>MEI (Microempreendedor Individual)</dt>
+            <dd>Categoria de empresa mais simples que existe. Teto de faturamento de R$ 81.000/ano. Imposto fixo mensal, não muda com quanto você vende.</dd>
+            <dt>ME (Microempresa)</dt>
+            <dd>Categoria seguinte ao MEI. Teto de R$ 360.000/ano. Imposto vira uma porcentagem do faturamento, calculado todo mês.</dd>
+            <dt>Simples Nacional</dt>
+            <dd>O regime de imposto que tanto MEI quanto ME normalmente usam. Junta vários impostos (que seriam cobrados separado) numa guia única, o DAS.</dd>
+            <dt>DAS</dt>
+            <dd>A guia (boleto) que você paga todo mês pra ficar em dia com o Simples Nacional. No MEI é valor fixo. Na ME é percentual do faturamento.</dd>
+            <dt>ICMS</dt>
+            <dd>Imposto estadual sobre circulação de mercadoria — incide sempre que você vende um produto físico (roupa, no seu caso).</dd>
+            <dt>ISS</dt>
+            <dd>Imposto municipal sobre serviço. Não é o seu caso principal, já que você vende produto, não presta serviço.</dd>
+            <dt>INSS (dentro do DAS-MEI)</dt>
+            <dd>Parte do seu DAS que vai pra previdência — é o que te dá direito a aposentadoria, auxílio-doença etc. como MEI.</dd>
+            <dt>Inscrição Estadual</dt>
+            <dd>Cadastro que te habilita a recolher ICMS e emitir nota fiscal de produto. Sem ela, você não pode vender mercadoria de forma legal, mesmo tendo CNPJ.</dd>
+            <dt>NF-e</dt>
+            <dd>Nota fiscal eletrônica de <b>produto/mercadoria</b>. É a que você vai emitir pra cada peça de roupa vendida. Autorizada pela Sefaz do estado.</dd>
+            <dt>NFS-e</dt>
+            <dd>Nota fiscal eletrônica de <b>serviço</b>. Não é a principal do seu negócio, mas existe caso você preste algum serviço avulso.</dd>
+            <dt>Sefaz-SP</dt>
+            <dd>Secretaria da Fazenda do Estado de São Paulo — o órgão estadual que cuida do ICMS e autoriza suas notas de produto.</dd>
+            <dt>CADESP</dt>
+            <dd>O cadastro dentro da Sefaz-SP que registra você como contribuinte do ICMS — é o sistema por trás da Inscrição Estadual em SP.</dd>
+            <dt>JUCESP</dt>
+            <dd>Junta Comercial do Estado de São Paulo — quem registra formalmente sua empresa quando ela vira ME (o MEI não passa por ela do mesmo jeito).</dd>
+            <dt>CRC</dt>
+            <dd>Conselho Regional de Contabilidade — o registro profissional que todo contador precisa ter ativo pra poder assinar documentos contábeis de uma ME.</dd>
+            <dt>RBT12</dt>
+            <dd>Receita Bruta dos últimos 12 meses. É o número usado pra calcular em qual faixa de imposto sua ME está, mês a mês.</dd>
+            <dt>Certificado digital (e-CNPJ)</dt>
+            <dd>Um arquivo/senha que funciona como sua assinatura digital oficial. Necessário pra emitir NF-e e assinar documentos da empresa online.</dd>
+          </dl>
+        </div>
+      </section>
+
+      <section class="doc-section" id="passo-1">
+        <div class="card">
+          <h2><span class="tag">PASSO 1</span> Abrir o MEI</h2>
+          <p class="sub">Gratuito, feito por você mesmo, sem contador. Leva poucos minutos depois de reunir os dados.</p>
+          <div class="explain">Por que MEI primeiro e não já abrir ME: MEI valida se o negócio vende de verdade, sem gastar com registro em Junta Comercial nem mensalidade de contador. Só migra pra ME quando o volume justificar o custo extra.</div>
+          <ol>
+            <li>Acesse o <a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei" target="_blank" rel="noopener noreferrer">Portal do Empreendedor — Quero ser MEI</a>
+              <p class="detail">Precisa de conta gov.br nível <mark>Prata ou Ouro</mark> — nível Bronze (só e-mail e senha) não é mais aceito em 2026. Prata se valida pelo app do seu banco; Ouro por reconhecimento facial no app gov.br.</p>
+            </li>
+            <li>Escolha o CNAE de <mark>comércio varejista de artigos do vestuário</mark>
+              <p class="detail">"Vendedor de roupas" está oficialmente na lista de atividades liberadas para MEI — não precisa se preocupar se essa atividade é permitida, ela é.</p>
+            </li>
+            <li>Preencha CPF, endereço, dados de contato
+              <p class="detail">O sistema gera automaticamente: CNPJ, número da Junta Comercial e Alvará Provisório de Funcionamento. Tudo na hora, sem espera.</p>
+            </li>
+            <li>Guarde o <mark>CCMEI</mark> (Certificado da Condição de MEI)
+              <p class="detail">É o documento que substitui o "contrato social" — é ele que você mostra pra banco, plataforma de venda, fornecedor etc. como prova de que sua empresa existe.</p>
+            </li>
+          </ol>
+          <div class="cost">
+            <span class="lbl">Custo exato</span>
+            <div class="table-scroll">
+              <table>
+                <tr><td>Abertura</td><td class="v">R$ 0,00</td></tr>
+                <tr><td>DAS mensal (comércio) — INSS R$ 81,05 + ICMS R$ 1,00</td><td class="v">R$ 82,05 / mês</td></tr>
+              </table>
+            </div>
+            <p style="font-weight:600; font-size:12.5px; margin:8px 0 0; color:#7a5b00;">O valor do INSS é 5% do salário mínimo vigente (R$ 1.621 em 2026), então esse número sobe todo ano junto com o salário mínimo. Vence todo dia 20.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="passo-2">
+        <div class="card">
+          <h2><span class="tag">PASSO 2</span> Inscrição Estadual — sem ela você não vende produto legalmente</h2>
+          <p class="sub">Diferente da nota de serviço (gratuita e automática pra qualquer MEI), a nota de produto depende de um cadastro extra.</p>
+          <div class="explain">Por que existe essa etapa: quem vende <b>serviço</b> paga ISS (imposto municipal, cadastro na prefeitura, simples). Quem vende <b>produto</b> — seu caso — paga ICMS (imposto estadual), e pra isso precisa estar cadastrado como contribuinte na Sefaz do seu estado. Sem esse cadastro, juridicamente você não tem como emitir nota de mercadoria.</div>
+          <ol>
+            <li>Em SP, a Inscrição Estadual normalmente sai <mark>automática</mark> ao abrir o MEI com CNAE de comércio.
+              <p class="detail">Isso acontece porque o CNAE já avisa a Sefaz que você vai vender mercadoria.</p>
+            </li>
+            <li>Se não sair automática, solicite pelo <a href="https://www.redesim.gov.br" target="_blank" rel="noopener noreferrer">portal REDESIM</a>.</li>
+            <li>Confirme o cadastro ativo no <a href="https://portal.fazenda.sp.gov.br" target="_blank" rel="noopener noreferrer">Portal da Fazenda de SP</a>, sistema CADESP.</li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="doc-section" id="passo-3">
+        <div class="card">
+          <h2><span class="tag">PASSO 3</span> Credenciamento para emitir NF-e (nota de produto)</h2>
+          <p class="sub">Depois de ter Inscrição Estadual, ainda falta uma etapa específica pra poder efetivamente emitir a nota.</p>
+          <ol>
+            <li>Peça o credenciamento direto na página oficial: <a href="https://portal.fazenda.sp.gov.br/servicos/simples/Paginas/Solicita%C3%A7%C3%A3o-de-Regulariza%C3%A7%C3%A3o-para-Emiss%C3%A3o-de-Documentos-Fiscais---MEI-(outros-casos).aspx" target="_blank" rel="noopener noreferrer">Sefaz-SP — Regularização para Emissão de Documentos Fiscais (MEI)</a>.
+              <p class="detail">Esse processo já teve etapa presencial em posto fiscal no passado — confirme direto na página se ainda é assim ou se já ficou 100% digital, porque processo de Sefaz muda sem aviso.</p>
+            </li>
+            <li>Compre um <mark>certificado digital e-CNPJ modelo A1</mark>.
+              <p class="detail">É o que autentica a nota como legítima perante a Sefaz. Sem ele, a nota é rejeitada.</p>
+            </li>
+            <li>Emita a NF-e pelo sistema da Sefaz-SP depois de credenciado.</li>
+          </ol>
+          <div class="cost">
+            <span class="lbl">Custo exato</span>
+            <div class="table-scroll">
+              <table>
+                <tr><td>Certificado digital A1 (anual)</td><td class="v">R$ 150 – R$ 300 / ano</td></tr>
+                <tr><td>Credenciamento na Sefaz-SP</td><td class="v">Sem taxa</td></tr>
+              </table>
+            </div>
+            <p style="font-weight:600; font-size:12.5px; margin:8px 0 0; color:#7a5b00;">A variação de preço do certificado vem da certificadora escolhida (empresas credenciadas pela ICP-Brasil) — não do governo. Não existe valor único porque é serviço privado, mas todas cumprem a mesma função.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="controle">
+        <div class="card">
+          <h2><span class="tag">CONTROLE</span> Teto do MEI — os dois cenários possíveis, explicados</h2>
+          <div class="explain">A ideia errada mais comum: "se passar de R$ 81 mil, já é obrigado a virar ME na hora". Não é bem assim — existe uma margem de tolerância. O que importa de verdade é não passar de <b>R$ 97.200</b> sem estar preparado.</div>
+          <div class="table-scroll">
+            <table>
+              <tr><th>Situação</th><th>O que acontece</th></tr>
+              <tr><td>Faturou até <span class="val">R$ 81.000</span>/ano</td><td>Nada muda, continua MEI normalmente</td></tr>
+              <tr><td>Passou até 20% (entre R$ 81.000,01 e <span class="val">R$ 97.200</span>)</td><td>Continua MEI até 31/dez. Paga um DAS complementar só sobre o valor excedente. Migra pra ME automaticamente em 1º de janeiro do ano seguinte, sem multa.</td></tr>
+              <tr><td>Passou de <span class="val">R$ 97.200</span></td><td>Desenquadramento <mark>retroativo</mark> a janeiro daquele ano. Você paga imposto de ME sobre TODO o faturamento do ano inteiro (não só o excedente), com juros e multa.</td></tr>
+            </table>
+          </div>
+          <div class="example">
+            <div class="title">Exemplo prático</div>
+            Se você faturar R$ 90.000 no ano, fica no cenário do meio: tranquilo, só paga a diferença em janeiro. Se faturar R$ 110.000, cai no cenário grave: a Receita recalcula imposto de ME sobre os R$ 110.000 inteiros, com juros desde janeiro daquele ano — não só sobre os R$ 29.000 que passaram do teto.
+          </div>
+          <div class="warn">
+            Gatilho de segurança prático: comece a preparar a migração pra ME quando bater <b>~R$ 55.000–60.000</b> acumulados no ano (perto de 70-75% do teto). Isso te dá 2-3 meses de folga pra já ter contador contratado e ME registrada antes de chegar perto dos R$ 97.200.
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="passo-4">
+        <div class="card">
+          <h2><span class="tag">PASSO 4</span> Migrar para ME — o que muda de verdade</h2>
+          <div class="explain">Por que contador vira obrigatório aqui: pela lei brasileira (Código Civil, art. 1.179, e Lei Complementar 123/2006), toda ME precisa manter escrituração contábil assinada por um contabilista com <mark>CRC ativo</mark>. Isso não é sobre quem entende mais do assunto — é uma exigência formal pra empresa existir de forma legal, do mesmo jeito que uma petição judicial precisa da assinatura de um advogado inscrito na OAB mesmo que o cliente entenda profundamente do próprio caso.</div>
+          <ol>
+            <li>Contratar contador com <mark>CRC ativo</mark> antes de iniciar o processo.</li>
+            <li>Registro do contrato social na <a href="https://www.jucesp.sp.gov.br" target="_blank" rel="noopener noreferrer">JUCESP</a> (Junta Comercial de SP).</li>
+            <li>Pedido de desenquadramento do MEI pelo Portal do Simples Nacional — o contador conduz essa parte tecnicamente, mas você acompanha.</li>
+            <li>Novo certificado digital vinculado à ME (confirme com o contador se o do MEI é reaproveitado ou precisa ser refeito).</li>
+          </ol>
+          <div class="cost">
+            <span class="lbl">Custo exato (São Paulo)</span>
+            <div class="table-scroll">
+              <table>
+                <tr><td>Taxa de registro na Junta Comercial (JUCESP)</td><td class="v">R$ 100 – R$ 700</td></tr>
+                <tr><td>Certificado digital A1 (anual)</td><td class="v">R$ 150 – R$ 400</td></tr>
+                <tr><td>Honorários de abertura do contador</td><td class="v">R$ 300 – R$ 1.500</td></tr>
+                <tr><td>Mensalidade contábil recorrente</td><td class="v">R$ 300 – R$ 800 / mês</td></tr>
+              </table>
+            </div>
+            <p style="font-weight:600; font-size:12.5px; margin:8px 0 0; color:#7a5b00;">A variação da taxa JUCESP depende do tipo de empresa (Empresário Individual x Sociedade Limitada) e do número de páginas do contrato social. A mensalidade do contador varia com volume de notas emitidas por mês e se tem funcionário registrado — muitos contadores isentam a taxa de abertura em troca de fechar contrato de mensalidade.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="imposto">
+        <div class="card">
+          <h2><span class="tag">IMPOSTO</span> Quanto você vai pagar de imposto como ME (Anexo I — Comércio)</h2>
+          <div class="explain">O imposto da ME não é um percentual fixo — ele é progressivo e calculado com base no seu faturamento acumulado dos últimos 12 meses (RBT12), não no faturamento do mês isolado.</div>
+          <div class="table-scroll">
+            <table>
+              <tr><th>Faturamento acumulado (12 meses)</th><th>Alíquota nominal</th><th>Valor a deduzir</th></tr>
+              <tr><td>Até R$ 180.000,00</td><td class="val">4,00%</td><td>R$ 0,00</td></tr>
+              <tr><td>R$ 180.000,01 a R$ 360.000,00</td><td class="val">7,30%</td><td>R$ 5.940,00</td></tr>
+            </table>
+          </div>
+          <p style="font-weight:600; font-size:13px; margin-top:8px;">(Tabela completa vai até R$ 4,8 milhões com alíquotas maiores — só coloquei as duas primeiras faixas porque ME por definição não passa de R$ 360.000/ano.)</p>
+          <div class="example">
+            <div class="title">Fórmula</div>
+            Alíquota efetiva = [ (RBT12 × alíquota nominal) − valor a deduzir ] ÷ RBT12
+            <div class="title" style="margin-top:10px;">Exemplo com R$ 250.000 faturados nos últimos 12 meses</div>
+            [(250.000 × 7,30%) − 5.940] ÷ 250.000 = (18.250 − 5.940) ÷ 250.000 = <mark>4,92% de alíquota efetiva</mark><br>
+            Ou seja: mesmo estando na faixa "de 7,30%", você paga na prática perto de 4,92% sobre o que vender naquele mês. É assim que evita pagar imposto pesado assim que passa de faixa.
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="protecao">
+        <div class="card">
+          <h2><span class="tag">PROTEÇÃO</span> Como saber se o contador que você contratar é bom</h2>
+          <p class="sub">Você não pode dispensar a exigência legal do contador, mas pode chegar sabendo o suficiente pra não ser enganado.</p>
+          <ul>
+            <li>Pergunte o número de <mark>registro no CRC</mark> e confira se está ativo no site do <a href="https://cfc.org.br" target="_blank" rel="noopener noreferrer">Conselho Federal de Contabilidade</a>.</li>
+            <li>Pergunte direto: "vocês trabalham com Anexo I do Simples Nacional pra comércio, com emissão de NF-e integrada com marketplace?" — se o contador travar ou não souber o que é Anexo I, é sinal ruim.</li>
+            <li>Peça pra ele te explicar, na contratação, exatamente o que está incluso na mensalidade (quantas notas, se inclui folha de pagamento se você tiver funcionário, se inclui a DASN/declaração anual).</li>
+            <li>Todo mês, confira se a alíquota efetiva que ele calculou bate com a fórmula deste documento. Se não bater, pergunte por quê — pode ter erro, ou pode ter um motivo válido (mudança de faixa, por exemplo) que ele deve conseguir te explicar na hora.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="doc-section" id="links-oficiais">
+        <div class="card">
+          <h2><span class="tag">RESUMO</span> Links oficiais</h2>
+          <ul>
+            <li><a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor/quero-ser-mei" target="_blank" rel="noopener noreferrer">Portal do Empreendedor — abrir MEI</a></li>
+            <li><a href="https://www.gov.br/empresas-e-negocios/pt-br/empreendedor" target="_blank" rel="noopener noreferrer">Portal do Empreendedor — página inicial (DAS, declarações, alterações)</a></li>
+            <li><a href="https://www.redesim.gov.br" target="_blank" rel="noopener noreferrer">REDESIM — Inscrição Estadual / regularização de CNAE</a></li>
+            <li><a href="https://portal.fazenda.sp.gov.br" target="_blank" rel="noopener noreferrer">Portal da Fazenda de SP (Sefaz-SP / CADESP)</a></li>
+            <li><a href="https://portal.fazenda.sp.gov.br/servicos/simples/Paginas/Solicita%C3%A7%C3%A3o-de-Regulariza%C3%A7%C3%A3o-para-Emiss%C3%A3o-de-Documentos-Fiscais---MEI-(outros-casos).aspx" target="_blank" rel="noopener noreferrer">Credenciamento NF-e para MEI (SP)</a></li>
+            <li><a href="https://www.jucesp.sp.gov.br" target="_blank" rel="noopener noreferrer">JUCESP — Junta Comercial de SP (registro de ME)</a></li>
+            <li><a href="https://www.nfse.gov.br" target="_blank" rel="noopener noreferrer">Emissor Nacional de NFS-e (nota de serviço, referência)</a></li>
+            <li><a href="https://cfc.org.br" target="_blank" rel="noopener noreferrer">CFC — Conselho Federal de Contabilidade (verificar CRC do contador)</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="doc-section" id="protocolo-header">
+        
+        <header>
+          <h1>Protocolo de Fornecedores e Plataformas</h1>
+          <p>Documento da equipe — vale para qualquer fornecedor ou parceiro, </p>
+        </header>
+      </section>
+
+      <section class="doc-section" id="alerta">
+        <div class="card">
+          <h2><span class="tag red">ALERTA</span> Sinais de que um fornecedor não é confiável</h2>
+          <div class="flag"><span class="flagicon">!</span>Se recusa a emitir nota fiscal, ou enrola quando você pergunta sobre isso.
+            <p class="why">Nota fiscal não é exigência sua, é exigência legal — quem recusa está escondendo algo ou operando fora da lei.</p>
+          </div>
+          <div class="flag"><span class="flagicon">!</span>Não aceita nada escrito, só "pode confiar em mim".
+            <p class="why">Confiança é ótimo pra manter a relação, mas não protege ninguém se algo der errado. Fornecedor sério não tem problema em assinar o que já combinou verbalmente.</p>
+          </div>
+          <div class="flag"><span class="flagicon">!</span>Não sabe explicar por que está oferecendo um preço tão bom.
+            <p class="why">Preço muito abaixo do mercado sempre tem motivo. Se o motivo não faz sentido de negócio, desconfie.</p>
+          </div>
+          <div class="flag"><span class="flagicon">!</span>Não tem controle de estoque nenhum e trata isso como normal.
+            <p class="why">Não é sobre nunca errar — é sobre reconhecer o problema e topar um processo de confirmação. Quem finge que não tem problema é o perigoso.</p>
+          </div>
+          <div class="flag"><span class="flagicon">!</span>Muda preço, prazo ou condição sem avisar antes.
+            <p class="why">Uma mudança pode ser legítima. Mudança sem aviso repetida é padrão de relação que vai te prejudicar.</p>
+          </div>
+          <div class="flag"><span class="flagicon">!</span>Pressiona pra decisão rápida, sem te dar tempo de analisar ou perguntar.
+            <p class="why">Fornecedor sério não se incomoda com você querendo entender direito antes de comprometer dinheiro.</p>
+          </div>
+          <div class="flag"><span class="flagicon">!</span>Pede pagamento adiantado alto logo na primeira negociação, sem histórico entre vocês.
+            <p class="why">Construa histórico com valores pequenos antes de comprometer capital alto com alguém novo.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="checklist">
+        <div class="card">
+          <h2><span class="tag">CHECKLIST</span> Antes de fechar com qualquer fornecedor novo</h2>
+          <p class="sub">Cinco pontos que sempre precisam de resposta clara </p>
+          <div class="option ideal"><span class="lbl">1 · Pagamento</span>Buscar consignação ou prazo curto (7-15 dias) antes de aceitar pagamento à vista como padrão fixo.
+            <p class="why">À vista sempre disponível como último recurso, mas prende capital — não deixe virar hábito.</p>
+          </div>
+          <div class="option ideal"><span class="lbl">2 · Confirmação de estoque</span>Nunca anunciar uma peça como disponível sem confirmação em tempo real de que ela está fisicamente separada ou com você.
+            <p class="why">Fornecedor que vende em vários canais ao mesmo tempo pode vender a mesma peça duas vezes se não houver essa trava.</p>
+          </div>
+          <div class="option ideal"><span class="lbl">3 · Saída do acordo</span>Definir o que acontece se o fornecedor parar de vender pra você ou mudar preço — de preferência com aviso prévio combinado.
+            <p class="why">Isso evita ficar no meio de uma campanha de marketing sem mercadoria de repente.</p>
+          </div>
+          <div class="option ideal"><span class="lbl">4 · Defeito de fabricação</span>Deixar claro quem arca com peça defeituosa — o fornecedor, não quem revende.
+            <p class="why">Defeito de fabricação é responsabilidade de quem fabricou.</p>
+          </div>
+          <div class="option ideal"><span class="lbl">5 · Registro por escrito</span>Todo combinado, mesmo que simples, vira mensagem ou documento assinado — nunca fica só na conversa.
+            <p class="why">Um resumo simples por escrito já vale muito mais do que nada se algo precisar ser provado depois.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="plataformas">
+        <div class="card">
+          <h2><span class="tag">PLATAFORMAS</span> Comparativo de custo e risco por canal de venda</h2>
+          <p class="sub">Baseado em dados de 2026. Valores de comissão mudam com frequência — sempre confirme no painel oficial de cada plataforma antes de precificar.</p>
+          <div class="platform">
+            <h3>TikTok Shop</h3>
+            <ul>
+              <li><b>Comissão:</b> ~6% + R$ 2 por item (isenção de comissão nos primeiros 60-90 dias pra vendedor novo, cumprindo metas da plataforma)</li>
+              <li><b>Checkout:</b> nativo — cliente compra sem sair do app</li>
+              <li><b>Prazo de despacho:</b> até 2 dias úteis após o pagamento</li>
+              <li><b>Risco principal:</b> penalidade por atraso (Taxa de Envio Atrasado, precisa ficar ≤4%) e por cancelamento causado pelo vendedor — ambos derrubam a visibilidade da loja no algoritmo</li>
+              <li><b>Repasse:</b> só depois que o cliente confirma o recebimento</li>
+            </ul>
+          </div>
+          <div class="platform">
+            <h3>Shopee</h3>
+            <ul>
+              <li><b>Comissão:</b> escalonada por faixa de preço — de 14% a 20% do valor do produto, mais taxa fixa de R$ 4 a R$ 26 por item dependendo do preço (sem teto máximo desde 2026)</li>
+              <li><b>Checkout:</b> nativo</li>
+              <li><b>Exigência legal:</b> acima de R$ 81 mil de faturamento anual, CNPJ e nota fiscal passam a ser obrigatórios pra continuar vendendo</li>
+              <li><b>Risco principal:</b> sistema de pontos de penalidade por atraso/cancelamento reduz benefícios de frete grátis e a competitividade do anúncio. Vender a mesma peça em mais de uma plataforma sem sincronizar estoque é a principal causa de cancelamento por falta de produto</li>
+            </ul>
+          </div>
+          <div class="platform">
+            <h3>Mercado Livre</h3>
+            <ul>
+              <li><b>Comissão:</b> anúncio Clássico 10% a 14%, Premium 15% a 19% (varia por categoria) — além disso, custos separados de frete, armazenagem (se usar o Full) e antecipação de recebíveis</li>
+              <li><b>Checkout:</b> nativo</li>
+              <li><b>Risco principal:</b> estrutura de custo mais complexa que as outras plataformas (comissão + frete + Full + Ads) — fácil calcular preço errado e vender no prejuízo sem perceber</li>
+            </ul>
+          </div>
+          <div class="platform">
+            <h3>Instagram Shopping</h3>
+            <ul>
+              <li><b>Comissão:</b> gratuito, a Meta não cobra nada pra usar</li>
+              <li><b>Checkout:</b> <mark>não existe checkout dentro do app no Brasil</mark> — funciona como vitrine, o cliente é redirecionado pra um site externo (loja própria) pra fechar a compra</li>
+              <li><b>Exigência:</b> precisa de conta comercial vinculada a uma página do Facebook, e de uma loja virtual própria (ex: Nuvemshop) pra realmente processar pagamento</li>
+              <li><b>Uso ideal:</b> canal de descoberta e conteúdo, não canal de venda direta sozinho — bom pra atrair, não pra fechar sem estrutura própria por trás</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="equipe">
+        <div class="card">
+          <h2><span class="tag">EQUIPE</span> Regras práticas pra quem estiver executando</h2>
+          <p class="sub">Pra quem for buscar peça, embalar, postar ou atender cliente — não precisa entender de imposto pra seguir isso.</p>
+          <div class="rule"><span class="rnum">1</span>Nunca marcar uma peça como "disponível" em qualquer plataforma sem confirmação física de que ela está separada ou já em nossa posse.</div>
+          <div class="rule"><span class="rnum">2</span>Toda retirada de mercadoria em qualquer fornecedor precisa vir com nota fiscal — sem nota, não retira, não importa a pressa.</div>
+          <div class="rule"><span class="rnum">3</span>Qualquer mudança de preço, prazo ou condição combinada com um fornecedor precisa ser registrada por escrito (print, mensagem, ou documento) e avisada ao resto da equipe no mesmo dia.</div>
+          <div class="rule"><span class="rnum">4</span>Se um fornecedor novo aparecer, antes de comprar qualquer quantidade grande, revisar com ele os sinais de alerta deste documento.</div>
+          <div class="rule"><span class="rnum">5</span>Nunca vender uma peça em uma plataforma sem checar se ela já não foi vendida em outra — estoque sincronizado entre canais evita cancelamento e penalidade.</div>
+        </div>
+      </section>
+
+      <section class="doc-section" id="perguntas">
+        <div class="card">
+          <h2><span class="tag">PERGUNTAS</span> Roteiro padrão pra negociar com qualquer fornecedor novo</h2>
+          <div class="qbox">Qual a forma de pagamento — à vista, prazo, ou consignação nas peças de giro mais lento?</div>
+          <div class="qbox">Como fico sabendo, em tempo real, que uma peça está disponível de verdade e não vai ser vendida em outro canal ao mesmo tempo?</div>
+          <div class="qbox">O que acontece se você decidir parar de vender pra gente, ou mudar o preço — dá pra combinar algum aviso prévio?</div>
+          <div class="qbox">Se vier peça com defeito de fabricação, você troca ou credita?</div>
+          <div class="qbox">Existe quantidade mínima ou máxima de compra por lote?</div>
+          <div class="qbox">Posso te mandar um resumo simples por escrito confirmando o que combinamos, só pra ficar registrado entre nós?</div>
+        </div>
+      </section>
+
+
+      <header>
+          <h1>Logística, Envio e Etiquetas</h1>
+          
+        </header>
+<section class="doc-section" id="logistica-envio-etiquetas">
+
+<div class="card">
+  <h2><span class="tag">FLUXO</span> Do pedido até a coleta</h2>
+  <p class="sub">Cinco etapas, sempre na mesma ordem, do momento da compra até o pacote sair com você.</p>
+  <div class="rule"><span class="rnum">1</span>Cliente compra — pedido aparece como pago na Central do Vendedor.</div>
+  <div style="text-align:center; font-weight:900; font-size:14px; color:var(--royal-deep); margin:2px 0;">↓</div>
+  <div class="rule"><span class="rnum">2</span>Pedido fica pendente de processamento, esperando a equipe agir.</div>
+  <div style="text-align:center; font-weight:900; font-size:14px; color:var(--royal-deep); margin:2px 0;">↓</div>
+  <div class="rule"><span class="rnum">3</span>Equipe separa a peça, embala e gera a etiqueta dentro do app — essa é a única ação manual de toda a cadeia.</div>
+  <div style="text-align:center; font-weight:900; font-size:14px; color:var(--royal-deep); margin:2px 0;">↓</div>
+  <div class="rule"><span class="rnum">4</span>No instante em que a etiqueta é gerada, a transportadora designada é notificada automaticamente — ninguém precisa ligar ou chamar nada.</div>
+  <div style="text-align:center; font-weight:900; font-size:14px; color:var(--royal-deep); margin:2px 0;">↓</div>
+  <div class="rule"><span class="rnum">5</span>Transportadora tem até 48h pra coletar tudo que estiver pronto — uma única visita já recolhe vários pacotes de uma vez.</div>
+
+  <div class="explain" style="margin-top:14px;">Confirmando o que você concluiu: gerar a etiqueta é o gatilho — a partir daí a transportadora vem dentro da janela de 48h, sem você precisar chamar ninguém. E sim, dá pra acumular pedidos, imprimir etiqueta de vários juntos e deixar tudo pronto pra uma única coleta levar todos. O único cuidado: o prazo de <mark>2 dias úteis corre por pedido individual</mark>, contado da hora da compra dele — não do momento em que você decide processar o lote. Se acumular pedidos antigos demais dentro do mesmo lote, o mais velho pode estourar o prazo mesmo os mais novos estando tranquilos.</div>
+</div>
+
+<section class="doc-section" id="coleta-modelo-padrao">
+
+<div class="card">
+  <h2><span class="tag red">CORREÇÃO</span> O modelo padrão é drop-off, não pick-up</h2>
+  <p class="sub">Ajuste importante em relação ao que estava registrado antes: coleta em casa não é automática em nenhuma das duas plataformas.</p>
+  <div class="warn">Tanto no TikTok Shop quanto na Shopee, <b>todo vendedor novo começa no modelo drop-off</b> — você leva o pacote até um ponto de coleta. A coleta em domicílio (pick-up) não é escolha sua: ela é ativada automaticamente pela própria plataforma, mais adiante, com base no histórico da loja.</div>
+
+  <div class="platform">
+    <h3>TikTok Shop</h3>
+    <ul>
+      <li>Método inicial: drop-off, definido por padrão pra toda loja nova</li>
+      <li>Critério pra mudar pra pick-up: volume médio diário de pedidos nos últimos 15 dias + localização elegível</li>
+      <li>A plataforma avisa por e-mail e mensagem na Central do Vendedor quando muda, verificando isso quinzenalmente</li>
+    </ul>
+  </div>
+  <div class="platform">
+    <h3>Shopee</h3>
+    <ul>
+      <li>Método inicial: drop-off, levando até ponto de coleta credenciado</li>
+      <li>Critério pra mudar pra pick-up (Shopee Xpress / SPX): reputação construída na plataforma ao longo do tempo</li>
+    </ul>
+  </div>
+
+  <div class="explain">Na prática: contar com alguém da equipe levando o pacote até um ponto físico nas primeiras semanas não é uma falha de planejamento — é o ponto de partida padrão pra qualquer vendedor novo, independente do tamanho da operação.</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="pontos-coleta-sao-mateus">
+
+<div class="card">
+  <h2><span class="tag">PONTOS REAIS</span> Coleta e agências perto de São Mateus</h2>
+  <p class="sub">Levantado a partir do endereço de referência perto do Hospital São Mateus. O app de cada plataforma indica o ponto exato designado só depois que você cadastra o endereço do galpão — os pontos abaixo são referência real da região, não necessariamente o exato local que o sistema vai apontar.</p>
+
+  <table>
+    <tr><th>Local</th><th>Endereço</th><th>Horário</th></tr>
+    <tr>
+      <td class="val">Ponto de Coleta J&T Express — TikTok / Kwai</td>
+      <td>Rua Batista Fergusio, 333 — Vila Cardoso Franco</td>
+      <td>Seg–sex 8h–16h, sáb 8h–12h</td>
+    </tr>
+    <tr>
+      <td class="val">Correios — Av. Maria Cursi</td>
+      <td>Av. Maria Cursi, 966 — Cidade São Mateus</td>
+      <td>Seg–sex 9h–17h, fechado fim de semana</td>
+    </tr>
+    <tr>
+      <td class="val">Correios — Av. Mateo Bei</td>
+      <td>Av. Mateo Bei, 2255 — Cidade São Mateus</td>
+      <td>Seg–sex 9h–17h, fechado fim de semana</td>
+    </tr>
+    <tr>
+      <td class="val">Ponto de Coleta Shopee</td>
+      <td>R. Luís Mateus, 421 — Jardim São Pedro</td>
+      <td>Seg–sex 9h30–18h, sáb 9h30–17h</td>
+    </tr>
+  </table>
+
+  <div class="explain">O ponto do J&T Express está identificado especificamente como ponto de coleta pra TikTok Shop e Kwai — é o mais provável de ser o designado pra sua loja quando cadastrar o endereço. O ponto da Shopee listado está mais distante; ao cadastrar a loja lá, o app deve indicar automaticamente uma opção mais próxima.</div>
+  <div class="warn">As agências dos Correios fecham no fim de semana — isso reforça processar os pedidos que exigem Correios até sexta-feira, deixando o que vender sábado/domingo pra segunda, dentro da folga de dia útil já explicada.</div>
+</div>
+
+</section>
+
+
+<section class="doc-section" id="base-legal-trocas-devolucao">
+
+<div class="card">
+  <h2><span class="tag">BASE LEGAL</span> Os três motivos de devolução são diferentes entre si</h2>
+  <p class="sub">O CDC trata cada situação de um jeito. Misturar os três é o erro mais comum de quem começa a vender.</p>
+
+  <div class="platform">
+    <h3>1. Defeito de fabricação (Art. 18 CDC)</h3>
+    <ul>
+      <li><b>Sempre</b> precisa trocar, reparar ou devolver o dinheiro — sem exceção, mesmo sendo peça íntima</li>
+      <li>Garantia legal: 90 dias, porque os tribunais consideram roupa um bem durável</li>
+      <li>Depois que o cliente aciona, você tem até 30 dias corridos pra resolver</li>
+    </ul>
+  </div>
+
+  <div class="platform">
+    <h3>2. Arrependimento — não gostou, mudou de ideia (Art. 49 CDC)</h3>
+    <ul>
+      <li>Direito de desistir em até 7 dias corridos após receber, sem precisar justificar — só vale pra compra online, não vale em loja física</li>
+      <li>Tecnicamente esse direito também alcança peça íntima — mas só é exercível se a peça <b>não tiver sido usada, lavada, e estiver com a etiqueta original intacta</b></li>
+    </ul>
+  </div>
+
+  <div class="platform">
+    <h3>3. Descumprimento do que foi anunciado (Art. 35 CDC)</h3>
+    <ul>
+      <li>Peça chegou diferente do pedido — tamanho errado, cor errada, modelo errado por erro da operação</li>
+      <li><b>Sempre</b> precisa corrigir: trocar pela peça certa ou devolver o dinheiro</li>
+    </ul>
+  </div>
+</div>
+
+<div class="card">
+  <h2><span class="tag red">ATENÇÃO</span> A parte de peça íntima que gera controvérsia</h2>
+  <div class="warn">Esse ponto específico não é 100% pacífico entre os tribunais — existem decisões de peso (como do TJDFT e do TJRJ) reconhecendo que uma loja pode recusar devolução por arrependimento de peça íntima <b>já aberta ou usada</b>, com base em biossegurança e saúde pública. Ao mesmo tempo, outras análises defendem que o direito de arrependimento vale igual pra qualquer produto online, peça íntima incluída. Isso não é achismo meu — é uma área genuinamente disputada na Justiça brasileira.</div>
+  <div class="explain">A prática mais segura, usada por lojas reais de lingerie no Brasil, é: aceitar arrependimento <b>somente se a peça estiver lacrada, com etiqueta intacta e sem sinal de uso</b>; recusar se houver qualquer indício de que foi vestida ou lavada. Isso não é abusivo — é a linha que a própria Justiça já validou como razoável. O que protege você de verdade é deixar essa condição escrita e visível <b>antes</b> da compra, não inventada depois que o cliente reclama.</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="politica-recomendada-loja">
+
+<div class="card">
+  <h2><span class="tag">POLÍTICA</span> O que colocar na página do produto e no cadastro da plataforma</h2>
+  <p class="sub">Texto pronto pra adaptar — objetivo é deixar claro antes da compra, não surpreender o cliente depois.</p>
+  <div class="example">
+    <div class="title">Modelo de texto pra descrição do produto / política da loja</div>
+    "Peça com defeito de fabricação: troca ou reembolso garantido, sem custo, dentro de 90 dias.<br>
+    Peça enviada errada (tamanho, cor ou modelo diferente do pedido): troca garantida, sem custo.<br>
+    Arrependimento da compra: aceito em até 7 dias corridos após o recebimento, desde que a peça esteja sem uso, sem lavagem, e com a etiqueta original intacta. Peças com sinal de uso não podem ser devolvidas por questão de higiene."
+  </div>
+  <div class="rule"><span class="rnum">1</span>Colar esse texto na descrição de cada produto, não só numa página genérica de política que ninguém lê.</div>
+  <div class="rule"><span class="rnum">2</span>Configurar a mesma regra nas configurações de devolução de cada plataforma (TikTok Shop, Shopee, Mercado Livre têm seção própria pra isso no Seller Center).</div>
+  <div class="rule"><span class="rnum">3</span>Enviar a peça com etiqueta ou lacre físico visível — isso facilita provar depois se ela foi ou não usada.</div>
+  <div class="warn">As plataformas não anulam a lei — o próprio TikTok Shop deixa contratualmente claro que o vendedor é responsável por cumprir os direitos de reembolso que o comprador tiver segundo a legislação brasileira. Ou seja: escrever uma política mais rígida que o CDC permite não protege juridicamente, só gera disputa.</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="fluxo-equipe-devolucao">
+
+<div class="card">
+  <h2><span class="tag">EQUIPE</span> Fluxo pra quem for atender o cliente</h2>
+  <p class="sub">Perguntas na ordem certa pra decidir rápido, sem precisar chamar você toda vez.</p>
+  <div class="qbox">Primeira pergunta sempre: qual o motivo — veio com defeito, veio errado, ou você só não gostou/mudou de ideia?</div>
+  <div class="qbox">Se defeito de fabricação → aceitar sempre, sem discussão. Troca ou reembolso, dentro de 90 dias.</div>
+  <div class="qbox">Se erro no envio (tamanho/cor/modelo errado) → aceitar sempre, sem discussão. Corrigir com a peça certa.</div>
+  <div class="qbox">Se arrependimento → perguntar se a peça foi usada ou lavada, e pedir confirmação de que a etiqueta está intacta. Se sim, aceitar dentro de 7 dias. Se houver sinal de uso, pode recusar com educação, citando a política já informada na compra.</div>
+</div>
+
+<div class="card">
+  <h2><span class="tag">FORNECEDOR</span> Como isso se conecta com o acordo já discutido</h2>
+  <div class="explain">Devolução por <b>defeito de fabricação</b> é a que já está prevista no acordo com o fornecedor — ele credita ou troca, sem custo pra você. Já a devolução por <b>arrependimento</b> não envolve o fornecedor de forma nenhuma: a peça volta pra você sem uso, então ela simplesmente retorna pro seu estoque como nova, pronta pra vender de novo. Vale deixar isso claro com ele, pra não haver expectativa errada de que toda devolução gera custo ou troca do lado dele.</div>
+</div>
+
+</section>
+
+
+<section class="doc-section" id="estrategia">
+<div class="card">
+  <h2><span class="tag">ESTRATÉGIA</span> Processar em janelas fixas, não continuamente</h2>
+  <p class="sub">Nem reagir a cada venda em tempo real, nem deixar acumular por dias — o ponto certo fica no meio.</p>
+  <div class="explain">Defina 1 ou 2 horários fixos por dia pra processar tudo que chegou desde a última rodada — por exemplo, um horário no meio da tarde e outro no fim do dia. Isso mantém a vantagem de uma coleta só levando vários pacotes, sem deixar nenhum pedido velho demais dentro do prazo dele.</div>
+  <div class="example">
+    <div class="title">Exemplo de rotina</div>
+    13h — separar, embalar e gerar etiqueta de tudo que vendeu desde a manhã.<br>
+    19h — repetir para o que vendeu à tarde/início da noite.<br>
+    Resultado: nenhum pedido passa de ~30h parado, bem dentro da folga de 2 dias úteis, e a transportadora ainda recolhe tudo em poucas visitas por dia.
+  </div>
+  <div class="warn">Se uma live grande gerar um pico de pedidos numa noite só, esse volume pode não caber nas janelas normais — dimensione uma rodada extra de embalagem no dia seguinte à live, não trate como um dia comum.</div>
+</div>
+</section>
+
+<section class="doc-section" id="a-seu-favor">
+<div class="card">
+  <h2><span class="tag">A SEU FAVOR</span> Sábado, domingo e feriado não contam</h2>
+  <p class="sub">Confirmado direto na política oficial do TikTok Shop: dia útil é qualquer dia que não seja sábado, domingo ou feriado público no Brasil.</p>
+  <div class="example">
+    <div class="title">Na prática</div>
+    Um pedido que chega numa sexta-feira só começa a contar o prazo relevante a partir da segunda — ou seja, a equipe tem folga real até a terça-feira pra processar o que vendeu na sexta, sábado e domingo inteiros.
+  </div>
+  <div class="explain">Isso significa que não é necessário ter alguém trabalhando no fim de semana só por causa do prazo do TikTok Shop — o volume do fim de semana inteiro pode ser processado na segunda-feira, dentro das janelas normais.</div>
+  <div class="warn">Essa folga vale especificamente pra regra do TikTok Shop. Cada plataforma nova que a operação for abrir (Shopee, Mercado Livre etc.) pode definir "dia útil" de um jeito diferente — confirmar a política de cada uma antes de assumir que a mesma folga se aplica.</div>
+</div>
+</section>
+
+
+<section class="doc-section" id="alertas">
+<div class="card">
+  <h2><span class="tag">ALERTAS</span> Pontos que passam despercebidos</h2>
+  <div class="warn">Venda pra fora de São Paulo pode gerar cobrança de ICMS DIFAL (diferencial de alíquota entre estados). Se não for pago antes do envio, o parceiro logístico do TikTok pode cobrir o valor e cobrar de volta com multa depois. Alinhar isso com o contador ao migrar pra ME.</div>
+  <div class="warn">A coleta em domicílio (pick-up) só está disponível por cobertura regional — mesmo estando em São Paulo, confirmar no cadastro se o endereço do galpão está dentro da área coberta antes de contar com isso como certo.</div>
+  <div class="warn">Toda mudança de rastreio registrada na Central do Vendedor só pode ser editada nas 72h seguintes ao registro — conferir se os dados batem com a etiqueta física antes de finalizar, porque depois desse prazo não dá mais pra corrigir.</div>
+</div>
+</section>
+
+
+
+<section class="doc-section" id="equipamento">
+<div class="card">
+  <h2><span class="tag">EQUIPAMENTO</span> Impressora de etiqueta — o que comprar</h2>
+  <p class="sub">Preços levantados em julho/2026, variam por loja — confirmar valor atual antes de comprar.</p>
+  <div class="platform">
+    <h3>Recomendada: Elgin L42DT</h3>
+    <ul>
+      <li><b>Preço:</b> R$ 1.000 a R$ 1.300, dependendo do vendedor</li>
+      <li><b>Por que essa:</b> é térmica direta — não usa ribbon nem tinta, então o custo de operação fica só no rolo de etiqueta, mais barato a longo prazo</li>
+      <li>Conexão USB/Serial, amplamente usada por vendedores de Shopee, Mercado Livre e TikTok Shop no Brasil</li>
+    </ul>
+  </div>
+  <div class="platform">
+    <h3>Se o volume crescer bastante: Argox OS-2140</h3>
+    <ul>
+      <li><b>Preço:</b> R$ 1.765 a R$ 2.040</li>
+      <li>Carcaça toda em metal, mais robusta pra uso pesado contínuo — não é necessária pra começar</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+
+</section>
+
+
+<section class="doc-section" id="outras-plataformas-logistica">
+
+<div class="card">
+  <h2><span class="tag">SHOPEE</span> Como funciona o envio</h2>
+  <p class="sub">Prazo de despacho: 2 a 3 dias úteis após confirmação do pagamento.</p>
+  <div class="rule"><span class="rnum">1</span>Pagamento confirmado — vendedor é notificado pra preparar o envio.</div>
+  <div class="rule"><span class="rnum">2</span>Embala o produto e imprime a etiqueta gerada automaticamente pelo sistema.</div>
+  <div class="rule"><span class="rnum">3</span>Leva o pacote até um ponto de coleta credenciado (Correios ou transportadora parceira).</div>
+  <div class="explain">Diferença importante em relação ao TikTok Shop: na Shopee, todo vendedor <mark>começa obrigatoriamente no modelo drop-off</mark> — leva o pacote até um ponto de coleta. A coleta em casa (Shopee Xpress / SPX) só é liberada depois que o vendedor constrói reputação na plataforma. Ou seja, no início, contar com alguém da equipe se deslocando até um ponto de coleta é parte do plano, não uma falha.</div>
+</div>
+
+<div class="card">
+  <h2><span class="tag">MERCADO LIVRE</span> Como funciona o envio</h2>
+  <p class="sub">Existem três modalidades — a certa pra começar não é a mais avançada.</p>
+  <div class="platform">
+    <h3>Envio próprio — recomendado pra começar</h3>
+    <ul>
+      <li>Vendedor embala, imprime a etiqueta e leva até uma agência dos Correios ou agência do Mercado Livre</li>
+      <li>Não exige nenhuma contratação — é a forma mais simples de validar antes de crescer</li>
+    </ul>
+  </div>
+  <div class="platform">
+    <h3>Mercado Envios Coleta — próximo passo com volume</h3>
+    <ul>
+      <li>Transportadora parceira busca no seu endereço, em horário agendado</li>
+      <li><b>Exige CNPJ e nota fiscal em toda venda</b>, e só está disponível em alguns estados (São Paulo está entre eles)</li>
+      <li>Elegibilidade também depende de volume e histórico — não é liberado automaticamente</li>
+    </ul>
+  </div>
+  <div class="platform">
+    <h3>Flex — só se fizer sentido pra sua região</h3>
+    <ul>
+      <li>Alguém da equipe entrega pessoalmente em endereços próximos, em até 24h</li>
+      <li>Vantagem de prazo, mas exige disponibilidade real de alguém pra rodar entregas — avaliar só se o público estiver concentrado perto do galpão</li>
+    </ul>
+  </div>
+  <div class="explain">A ordem recomendada é a mesma lógica de qualquer plataforma nova: começar pelo modelo mais simples (envio próprio/drop-off), e só migrar pra coleta em domicílio quando o volume e o histórico justificarem.</div>
+</div>
+
+<section class="doc-section" id="vale-conhecer">
+<div class="card">
+  <h2><span class="tag">VALE CONHECER</span> Kwai Shop — outra opção de live commerce</h2>
+  <p class="sub">Modelo parecido com o TikTok Shop, focado em vídeo curto e live — vale considerar dado que vocês já pretendem fazer live de venda.</p>
+  <div class="explain">O Kwai Shop chegou ao Brasil em outubro de 2024 e vem crescendo forte especificamente em live commerce — a mesma modalidade de venda que já é o ponto forte do fornecedor que vocês conhecem. Exige CNPJ obrigatoriamente (não aceita CPF), e a logística funciona por transportadoras parceiras como J&T Express e iMile, de forma parecida com o TikTok Shop.</div>
+  <div class="warn">Não é necessário abrir agora — é uma opção pra ter no radar quando a operação já estiver rodando bem em uma plataforma e fizer sentido testar um segundo canal de live commerce.</div>
+</div>
+</section>
+
+</section>
+
+
+
+
+
+      <footer class="footer-note">Documento interno da operação — atualizar sempre que a equipe aprender algo novo com um fornecedor ou plataforma.</footer>
+      <footer class="footer-note">Documento de referência pessoal — confirme prazos e taxas vigentes diretamente nos portais antes de agir, pois processos de Sefaz e valores atrelados ao salário mínimo mudam ano a ano.</footer>
+    </div>
+  </main>
+</div>
+
+<script>
+  const toggle = document.querySelector('.menu-toggle');
+  const body = document.body;
+  const sidebarLinks = document.querySelectorAll('.sidebar a');
+
+  if (toggle) {
+    toggle.addEventListener('click', () => {
+      const open = body.classList.toggle('menu-open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+  }
+
+  sidebarLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (window.innerWidth <= 980) {
+        body.classList.remove('menu-open');
+        toggle && toggle.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+</script>
+</body>
+</html>
