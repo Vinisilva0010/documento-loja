@@ -4,636 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Documentação — MEI → ME + Protocolo de Fornecedores</title>
-<style>
-  :root{
-    --royal:#1a2f8f;
-    --royal-deep:#0d1c52;
-    --paper:#ffffff;
-    --ink:#0a0a0a;
-    --highlight:#ffe14d;
-    --highlight-soft:#fff6cc;
-    --line:#e2e6f7;
-    --gray:#444;
-    --gold:#c99a00;
-    --neutral:#7a8199;
-    --red:#b3121b;
-    --sidebar-width:320px;
-    --topbar-height:72px;
-  }
-
-  *{box-sizing:border-box;}
-  html{scroll-behavior:smooth;}
-  html, body{overflow-x:hidden;}
-  body{
-    margin:0;
-    background:var(--royal);
-    background-image:linear-gradient(180deg, var(--royal) 0%, var(--royal-deep) 100%);
-    font-family:-apple-system, "Segoe UI", Arial, sans-serif;
-    color:var(--ink);
-    line-height:1.5;
-  }
-
-  img, table, iframe{max-width:100%;}
-  a{
-    color:var(--royal-deep);
-    font-weight:900;
-    text-decoration:underline;
-    text-decoration-thickness:2px;
-    overflow-wrap:anywhere;
-    word-break:break-word;
-  }
-  a:hover{color:#000;}
-  mark{background:var(--highlight);color:var(--ink);font-weight:900;padding:1px 5px;border-radius:3px;}
-  table{width:100%;border-collapse:collapse;margin-top:8px;}
-  th, td{text-align:left;padding:9px 8px;font-weight:700;font-size:13.5px;border-bottom:1px solid var(--line);vertical-align:top;}
-  th{font-weight:900;font-size:11.5px;text-transform:uppercase;color:#555;}
-  td.val{font-weight:900;color:var(--royal-deep);white-space:nowrap;}
-  ol, ul{margin:0;padding-left:20px;}
-  li{font-weight:700;font-size:15px;margin-bottom:10px;}
-  li:last-child{margin-bottom:0;}
-
-  header h1,
-  .card h2,
-  .platform h3,
-  .brand h1{
-    overflow-wrap:anywhere;
-    word-break:break-word;
-  }
-
-  .card,
-  .platform,
-  .option,
-  .flag,
-  .rule,
-  .qbox,
-  .explain,
-  .example,
-  .warn,
-  .cost,
-  .alertbanner{
-    overflow:hidden;
-  }
-
-  .table-scroll{
-    width:100%;
-    overflow-x:auto;
-    -webkit-overflow-scrolling:touch;
-  }
-
-  .table-scroll table{
-    min-width:620px;
-  }
-
-  .layout{
-    min-height:100vh;
-  }
-
-  .sidebar{
-    position:fixed;
-    top:0;
-    left:0;
-    width:var(--sidebar-width);
-    height:100vh;
-    padding:24px 18px 24px;
-    background:rgba(13,28,82,.96);
-    border-right:1px solid rgba(255,255,255,.12);
-    backdrop-filter:blur(10px);
-    overflow-y:auto;
-    overflow-x:hidden;
-    z-index:100;
-  }
-
-  .brand{
-    color:#fff;
-    margin-bottom:20px;
-  }
-  .brand .eyebrow{
-    display:inline-block;
-    font-size:11px;
-    font-weight:900;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    color:#cfd6ff;
-    margin-bottom:8px;
-  }
-  .brand h1{
-    margin:0 0 8px;
-    font-size:20px;
-    line-height:1.2;
-    font-weight:900;
-  }
-  .brand p{
-    margin:0;
-    color:#cfd6ff;
-    font-size:13px;
-    font-weight:600;
-  }
-
-  .nav-section{margin-top:22px;}
-  .nav-title{
-    color:#ffe14d;
-    font-size:11px;
-    text-transform:uppercase;
-    letter-spacing:.08em;
-    font-weight:900;
-    margin:0 0 10px;
-  }
-  .nav-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px;}
-  .nav-list a{
-    display:block;
-    color:#fff;
-    text-decoration:none;
-    font-size:13.5px;
-    font-weight:800;
-    padding:10px 12px;
-    border-radius:8px;
-    border:1px solid transparent;
-    background:rgba(255,255,255,.04);
-  }
-  .nav-list a:hover,
-  .nav-list a:focus-visible{
-    background:rgba(255,255,255,.11);
-    border-color:rgba(255,255,255,.14);
-    color:#fff;
-    outline:none;
-  }
-
-  .mobile-topbar{
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    z-index:1200;
-    height:var(--topbar-height);
-    padding:14px 16px;
-    align-items:center;
-    justify-content:space-between;
-    gap:12px;
-    background:rgba(13,28,82,.98);
-    backdrop-filter:blur(10px);
-    border-bottom:1px solid rgba(255,255,255,.12);
-  }
-  .mobile-topbar .title{
-    color:#fff;
-    font-size:15px;
-    font-weight:900;
-    line-height:1.2;
-  }
-  .menu-toggle{
-    min-width:44px;
-    min-height:44px;
-    border:none;
-    border-radius:10px;
-    background:#fff;
-    color:var(--royal-deep);
-    font-weight:900;
-    cursor:pointer;
-    position:relative;
-    z-index:1300;
-  }
-
-  .content{
-    margin-left:var(--sidebar-width);
-    min-height:100vh;
-    padding:32px 20px 90px;
-  }
-  .wrap{max-width:980px;margin:0 auto;}
-
-  header{text-align:center;color:#fff;margin-bottom:26px;}
-  header h1{font-size:26px;font-weight:900;margin:0 0 6px;}
-  header p{margin:0;font-weight:600;color:#cfd6ff;font-size:14px;}
-
-  .doc-section{margin-bottom:34px;scroll-margin-top:24px;}
-  .doc-label{
-    display:inline-block;
-    margin-bottom:14px;
-    background:rgba(255,255,255,.12);
-    color:#fff;
-    border:1px solid rgba(255,255,255,.18);
-    border-radius:999px;
-    padding:7px 12px;
-    font-size:12px;
-    font-weight:900;
-    text-transform:uppercase;
-    letter-spacing:.05em;
-  }
-
-  .card{
-    background:var(--paper);
-    border-radius:10px;
-    padding:22px 22px 24px;
-    margin-bottom:20px;
-    box-shadow:0 6px 18px rgba(0,0,0,0.25);
-    border:2px solid var(--royal-deep);
-  }
-  .card h2{
-    font-size:19px;
-    font-weight:900;
-    margin:0 0 4px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-  }
-  .tag{display:inline-block;background:var(--royal);color:#fff;font-size:11px;font-weight:800;padding:3px 8px;border-radius:5px;}
-  .tag.red{background:var(--red);}
-  .card .sub{font-weight:700;font-size:13.5px;color:var(--gray);margin:0 0 12px;}
-  .explain{
-    background:#f4f6ff;border-left:4px solid var(--royal);border-radius:6px;
-    padding:10px 14px;margin-bottom:14px;font-weight:600;font-size:14px;color:#222;
-  }
-  .explain b{font-weight:900;}
-  li p.detail{font-weight:600;font-size:13.5px;color:var(--gray);margin:3px 0 0;}
-  .cost{
-    background:var(--highlight-soft);border-left:5px solid var(--highlight);border-radius:6px;
-    padding:12px 14px;margin-top:14px;font-weight:800;font-size:14px;
-  }
-  .cost span.lbl{display:block;font-weight:900;font-size:12px;text-transform:uppercase;color:#7a5b00;margin-bottom:6px;}
-  .cost table{width:100%;}
-  .cost td{padding:3px 0;font-weight:700;font-size:13.5px;border:none;}
-  .cost td.v{text-align:right;font-weight:900;}
-  .example{
-    background:#eef1fd;border-radius:8px;padding:14px 16px;margin-top:12px;
-    font-weight:700;font-size:14px;
-  }
-  .example .title{font-weight:900;font-size:12px;text-transform:uppercase;color:var(--royal-deep);margin-bottom:6px;}
-  .warn{background:#1a1a1a;color:#fff;border-radius:8px;padding:14px 16px;font-weight:800;font-size:14px;margin-top:14px;}
-  .warn b{color:var(--highlight);}
-  .glossary dt{font-weight:900;font-size:14.5px;margin-top:12px;color:var(--royal-deep);}
-  .glossary dt:first-child{margin-top:0;}
-  .glossary dd{font-weight:600;font-size:14px;margin:2px 0 0;color:#222;}
-  .alertbanner{
-    background:var(--red);color:#fff;border-radius:10px;padding:18px 20px;margin-bottom:22px;
-    font-weight:800;font-size:15px;border:3px solid #7a0d13;
-  }
-  .alertbanner .h{font-size:13px;text-transform:uppercase;letter-spacing:.5px;font-weight:900;color:var(--highlight);margin-bottom:6px;}
-  .flag{
-    background:#fff3f3;border:2px solid var(--red);border-radius:8px;padding:12px 15px;margin-bottom:10px;
-    font-weight:800;font-size:14.5px;display:flex;gap:10px;align-items:flex-start;
-  }
-  .flag:last-child{margin-bottom:0;}
-  .flagicon{
-    background:var(--red);color:#fff;font-weight:900;font-size:13px;min-width:26px;height:26px;
-    border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;
-  }
-  .flag p.why{font-weight:600;font-size:13px;color:var(--gray);margin:4px 0 0;}
-  .option{border-radius:8px;padding:14px 16px;margin-bottom:12px;font-weight:700;font-size:14.5px;}
-  .option:last-child{margin-bottom:0;}
-  .option .lbl{display:inline-block;font-weight:900;font-size:11.5px;text-transform:uppercase;padding:3px 9px;border-radius:5px;margin-bottom:8px;}
-  .ideal{background:#fffaf0;border:2px solid var(--gold);}
-  .ideal .lbl{background:var(--gold);color:#fff;}
-  .secundaria{background:#f5f6fa;border:2px solid var(--neutral);}
-  .secundaria .lbl{background:var(--neutral);color:#fff;}
-  .option p.why{font-weight:600;font-size:13px;color:var(--gray);margin:6px 0 0;}
-  .platform{
-    border-radius:8px;padding:14px 16px;margin-bottom:14px;border:2px solid var(--royal-deep);background:#fbfbff;
-  }
-  .platform:last-child{margin-bottom:0;}
-  .platform h3{margin:0 0 8px;font-size:15.5px;font-weight:900;}
-  .platform ul{margin:0;padding-left:18px;}
-  .platform li{font-weight:600;font-size:13.5px;margin-bottom:5px;}
-  .platform li b{font-weight:900;}
-  .platform li:last-child{margin-bottom:0;}
-  .rule{
-    background:#eef1fd;border-radius:8px;padding:13px 16px;margin-bottom:10px;
-    font-weight:700;font-size:14.5px;display:flex;gap:10px;align-items:flex-start;
-  }
-  .rule:last-child{margin-bottom:0;}
-  .rnum{
-    background:var(--royal);
-    color:#fff;
-    font-weight:900;
-    font-size:13px;
-    min-width:24px;
-    height:24px;
-    border-radius:50%;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    flex-shrink:0;
-    margin-top:1px;
-  }
-  .qbox{background:#eef1fd;border-radius:8px;padding:13px 16px;margin-bottom:10px;font-weight:700;font-size:14.5px;}
-  .qbox:last-child{margin-bottom:0;}
-  .footer-note{text-align:center;color:#cfd6ff;font-weight:700;font-size:12px;margin-top:24px;}
-
-  .content-anchor{
-    display:block;
-    margin-top:-6px;
-    padding-top:6px;
-  }
-
-  @media (max-width: 980px){
-    :root{
-      --topbar-height:64px;
-    }
-
-    .sidebar{
-      top:0;
-      left:0;
-      width:min(88vw, 340px);
-      height:100dvh;
-      padding:calc(var(--topbar-height) + 14px) 14px 24px;
-      z-index:1100;
-      transform:translateX(-110%);
-      transition:transform .25s ease;
-      box-shadow:0 18px 40px rgba(0,0,0,.35);
-      border-right:1px solid rgba(255,255,255,.12);
-    }
-
-    body.menu-open .sidebar{
-      transform:translateX(0);
-    }
-
-    .mobile-topbar{
-      display:flex;
-    }
-
-    .content{
-      margin-left:0;
-      width:100%;
-      min-height:auto;
-      padding:calc(var(--topbar-height) + 16px) 12px 64px;
-    }
-
-    .wrap{
-      max-width:100%;
-    }
-
-    header{
-      margin:8px 0 20px;
-      padding:0 2px;
-    }
-
-    header h1{
-      font-size:24px;
-      line-height:1.15;
-    }
-
-    header p{
-      font-size:13px;
-      line-height:1.45;
-    }
-
-    .doc-section{
-      margin-bottom:24px;
-      scroll-margin-top:calc(var(--topbar-height) + 14px);
-    }
-
-    .doc-label{
-      font-size:11px;
-      padding:6px 10px;
-      margin-bottom:10px;
-    }
-
-    .card{
-      padding:16px 14px 18px;
-      margin-bottom:16px;
-      border-radius:10px;
-    }
-
-    .card h2{
-      font-size:17px;
-      line-height:1.2;
-      align-items:flex-start;
-      flex-wrap:wrap;
-      gap:6px;
-    }
-
-    .tag{
-      flex-shrink:0;
-    }
-
-    .card .sub,
-    .explain,
-    .example,
-    .warn,
-    .option,
-    .flag,
-    .qbox,
-    .rule,
-    .glossary dd{
-      font-size:13.5px;
-      line-height:1.5;
-    }
-
-    li{
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    li p.detail,
-    .flag p.why,
-    .option p.why{
-      font-size:12.8px;
-      line-height:1.45;
-    }
-
-    th, td{
-      font-size:12.5px;
-      padding:8px 6px;
-    }
-
-    .cost{
-      padding:12px 12px;
-    }
-
-    .cost td{
-      font-size:12.5px;
-    }
-
-    .platform{
-      padding:13px 13px 14px;
-    }
-
-    .platform h3{
-      font-size:15px;
-      line-height:1.25;
-    }
-
-    .rule,
-    .flag{
-      gap:8px;
-    }
-
-    .footer-note{
-      font-size:11.5px;
-      line-height:1.45;
-      padding:0 4px;
-    }
-  }
-
-  @media (max-width: 640px){
-    :root{
-      --topbar-height:60px;
-    }
-
-    body{
-      line-height:1.42;
-    }
-
-    .mobile-topbar{
-      height:var(--topbar-height);
-      padding:8px 10px 8px 12px;
-    }
-
-    .mobile-topbar .title{
-      font-size:14px;
-      line-height:1.2;
-      max-width:70%;
-    }
-
-    .menu-toggle{
-      min-width:44px;
-      min-height:44px;
-      padding:0 12px;
-      border-radius:10px;
-      font-size:13px;
-    }
-
-    .sidebar{
-      width:min(92vw, 320px);
-      padding:calc(var(--topbar-height) + 12px) 12px 22px;
-    }
-
-    .brand{
-      margin-bottom:16px;
-    }
-
-    .brand h1{
-      font-size:17px;
-      line-height:1.2;
-    }
-
-    .brand p{
-      font-size:12.5px;
-      line-height:1.4;
-    }
-
-    .nav-title{
-      font-size:10px;
-      margin-bottom:8px;
-    }
-
-    .nav-list{
-      gap:5px;
-    }
-
-    .nav-list a{
-      font-size:12.5px;
-      line-height:1.35;
-      padding:10px 10px;
-      border-radius:8px;
-    }
-
-    .content{
-      padding:calc(var(--topbar-height) + 14px) 10px 56px;
-    }
-
-    header h1{
-      font-size:21px;
-    }
-
-    header p{
-      font-size:12.5px;
-    }
-
-    .doc-section{
-      margin-bottom:20px;
-      scroll-margin-top:calc(var(--topbar-height) + 12px);
-    }
-
-    .card{
-      padding:14px 12px 16px;
-      border-radius:9px;
-    }
-
-    .card h2{
-      font-size:16px;
-    }
-
-    .tag{
-      font-size:10px;
-      padding:3px 7px;
-    }
-
-    .card .sub{
-      font-size:12.8px;
-    }
-
-    .glossary dt{
-      font-size:13.5px;
-    }
-
-    .glossary dd,
-    .explain,
-    .example,
-    .warn,
-    .option,
-    .flag,
-    .qbox,
-    .rule,
-    .alertbanner{
-      font-size:13px;
-      line-height:1.45;
-    }
-
-    li{
-      font-size:13.5px;
-    }
-
-    li p.detail,
-    .flag p.why,
-    .option p.why{
-      font-size:12.4px;
-    }
-
-    .flagicon,
-    .rnum{
-      min-width:22px;
-      width:22px;
-      height:22px;
-      font-size:11px;
-    }
-
-    .platform{
-      padding:12px;
-    }
-
-    .platform h3{
-      font-size:14px;
-    }
-
-    .platform ul{
-      padding-left:16px;
-    }
-
-    .cost span.lbl,
-    .example .title,
-    th{
-      font-size:10.5px;
-    }
-
-    th, td{
-      font-size:12px;
-      padding:7px 5px;
-    }
-
-    .table-scroll{
-      margin-top:6px;
-      border-radius:8px;
-    }
-
-    .table-scroll table{
-      min-width:560px;
-    }
-
-    .footer-note{
-      font-size:11px;
-      margin-top:18px;
-    }
-  }
-</style>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="mobile-topbar">
@@ -680,14 +51,34 @@
         </ul>
       </nav>
     </div>
-    <div class="nav-title">Logística, Envio e Etiquetas</div>
+    
+
     <div class="nav-section">
-      
+      <div class="nav-title">Precificação</div>
+      <nav>
+        <ul class="nav-list">
+          <li><a href="#formula-precificacao">Fórmula de precificação</a></li>
+          <li><a href="#custos-por-plataforma">Custos por plataforma</a></li>
+          <li><a href="#exemplos-precificacao">Exemplos calculados</a></li>
+          <li><a href="#janela-promocional-estrategia">Janela promocional</a></li>
+          
+        </ul>
+      </nav>
+    </div>
+
+
+
+    
+
+    <div class="nav-section">
+      <div class="nav-title">Logística, Envio e Etiquetas</div>
       <nav>
         <ul class="nav-list">
           <li><a href="#logistica-envio-etiquetas">Logista para envio</a></li>
           <li><a href="#coleta-modelo-padrao">Modelo padrão de coleta</a></li>
           <li><a href="#pontos-coleta-sao-mateus">Pontos de coleta próximos</a></li>
+          <li><a href="#processo-devolucao-fisica">Processo de devolução</a></li>
+          <li><a href="#reembolso-financeiro-plataforma">Reembolso financeiro</a></li>
           <li><a href="#base-legal-trocas-devolucao">Base legal de trocas</a></li>
           <li><a href="#politica-recomendada-loja">Política recomendada</a></li>
           <li><a href="#fluxo-equipe-devolucao">Fluxo da equipe</a></li>
@@ -1051,6 +442,106 @@
         </div>
       </section>
 
+      <section class="doc-section" id="protocolo-header">
+      <header>
+          <h1>Precificação</h1>
+          
+        </header>
+       <section class="doc-section" id="formula-precificacao">
+
+<div class="card">
+  <h2><span class="tag">FÓRMULA</span> Como calcular o preço de venda certo</h2>
+  <p class="sub">A taxa da plataforma é uma porcentagem do preço de venda, não do custo — por isso "custo vezes um número" não dá a margem real.</p>
+
+  <div class="warn">Erro comum: pegar o custo (ex: R$ 5) e multiplicar por 5 (R$ 25), achando que a diferença inteira é lucro. Não é — a comissão da plataforma, a taxa fixa por item e a embalagem ainda saem desse valor. O resultado real costuma ficar abaixo do que parece de cabeça.</div>
+
+  <div class="example">
+    <div class="title">Fórmula correta</div>
+    Preço de venda = (Custo do produto + Embalagem + Taxa fixa + Margem líquida que você quer) ÷ (1 − taxa percentual da plataforma)
+  </div>
+
+  <div class="explain">Por que dividir e não só somar: se a taxa é 12% do preço de venda, cada real a mais no preço final também aumenta a taxa cobrada. Dividir por (1 − taxa%) já compensa esse efeito, garantindo que a margem que sobra no final é exatamente a que você definiu como meta — não uma aproximação.</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="custos-por-plataforma">
+
+<div class="card">
+  <h2><span class="tag">CUSTOS</span> O que realmente sai do preço em cada plataforma</h2>
+  <p class="sub">Valores de referência de 2026 — confirmar o detalhamento exato dentro do Seller Center de cada plataforma antes de fechar o preço final.</p>
+
+  <div class="platform">
+    <h3>TikTok Shop</h3>
+    <ul>
+      <li><b>Comissão base:</b> 6% do valor do item</li>
+      <li><b>Taxa fixa:</b> R$ 2 por item, pra produtos abaixo de R$ 79</li>
+      <li><b>Programa de Taxa de Envio:</b> mais 6% sobre o valor do item (teto R$ 50/item) — <mark>não está totalmente claro se é adicional à comissão base ou a mesma taxa vista por outro ângulo</mark>. Planeje o pior cenário: até ~12% total, e confirme o valor exato no extrato de um pedido de teste</li>
+      <li><b>Isenção:</b> novos vendedores ficam com 0% de comissão nos primeiros 60 a 90 dias, cumprindo as missões da plataforma</li>
+    </ul>
+  </div>
+  <div class="platform">
+    <h3>Shopee</h3>
+    <ul>
+      <li><b>Comissão:</b> 14% a 20% do valor do produto, escalonada por faixa de preço</li>
+      <li><b>Taxa fixa:</b> R$ 4 a R$ 26 por item, dependendo da faixa de preço</li>
+    </ul>
+  </div>
+  <div class="platform">
+    <h3>Mercado Livre</h3>
+    <ul>
+      <li><b>Comissão:</b> Clássico 10% a 14%, Premium 15% a 19%</li>
+      <li><b>Custo extra:</b> frete e armazenagem separados, se usar Coleta ou Full</li>
+    </ul>
+  </div>
+
+  <div class="explain">Outros custos que entram na conta, independente da plataforma: embalagem (saco + etiqueta), imposto — no MEI é um valor fixo mensal (R$ 82,05), não por peça, então ele precisa ser coberto pelo volume total do mês, não embutido item a item — e uma margem de segurança pra cobrir devolução por arrependimento ou defeito, já que parte das vendas vai reverter.</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="exemplos-precificacao">
+
+<div class="card">
+  <h2><span class="tag">EXEMPLO</span> Conta real com os números que você já tem</h2>
+  <p class="sub">Peça com custo de R$ 5, embalagem estimada em R$ 1, vendendo no TikTok Shop.</p>
+
+  <div class="example">
+    <div class="title">Cenário 1 — fora do período promocional (taxa cheia, ~12% + R$ 2 fixo)</div>
+    Quer R$ 15 de margem líquida por peça:<br>
+    Preço = (5 + 1 + 2 + 15) ÷ (1 − 0,12) = 23 ÷ 0,88 = <mark>R$ 26,14</mark><br>
+    Ainda abaixo do preço médio de mercado (R$ 30), com margem líquida real de R$ 15 por peça, não R$ 20 que a conta simples sugeria.
+  </div>
+
+  <div class="example">
+    <div class="title">Cenário 2 — dentro da janela promocional (comissão 0%)</div>
+    Mesma peça, mesma margem de R$ 15 desejada, sem taxa percentual:<br>
+    Preço = 5 + 1 + 2 + 15 = <mark>R$ 23,00</mark><br>
+    Preço mais competitivo que no cenário 1, com a mesma margem líquida — ou, se preferir manter o mesmo preço de R$ 26, a margem líquida sobe pra quase R$ 18 nesse período.
+  </div>
+
+  <div class="warn">A diferença entre os dois cenários mostra por que vale tratar os primeiros 60-90 dias como uma janela estratégica, não só um bônus — é o momento de maior margem ou de maior competitividade de preço, dependendo do que você priorizar nesse início.</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="janela-promocional-estrategia">
+
+<div class="card">
+  <h2><span class="tag">ESTRATÉGIA</span> O que fazer com a janela de comissão zero</h2>
+  <p class="sub">Nos primeiros 60-90 dias, sem comissão, você tem duas estratégias possíveis — escolher uma não impede migrar pra outra depois.</p>
+  <div class="option ideal"><span class="lbl">Ganhar margem</span>Manter o preço próximo do mercado (ex: R$ 26-28) e embolsar a diferença enquanto a taxa está zerada, usando esse caixa extra pra reinvestir em conteúdo ou capital de giro.</div>
+  <div class="option secundaria"><span class="lbl">Ganhar mercado</span>Baixar o preço mais perto do custo real (ex: R$ 20-22), acumulando avaliações positivas e histórico de vendas mais rápido, o que ajuda o algoritmo e a elegibilidade pra benefícios futuros como coleta em domicílio.</div>
+  <div class="explain">Dado que sua prioridade até aqui tem sido validar o modelo com pouco capital e crescer a reputação da loja rápido, a segunda opção tende a fazer mais sentido no início — margem um pouco menor agora, em troca de mais histórico de vendas dentro da janela sem taxa, que é exatamente o período mais barato pra acumular esse histórico.</div>
+</div>
+
+</section>
+
+
+
+
+
+       </section>
 
       <header>
           <h1>Logística, Envio e Etiquetas</h1>
@@ -1175,6 +666,44 @@
   <h2><span class="tag red">ATENÇÃO</span> A parte de peça íntima que gera controvérsia</h2>
   <div class="warn">Esse ponto específico não é 100% pacífico entre os tribunais — existem decisões de peso (como do TJDFT e do TJRJ) reconhecendo que uma loja pode recusar devolução por arrependimento de peça íntima <b>já aberta ou usada</b>, com base em biossegurança e saúde pública. Ao mesmo tempo, outras análises defendem que o direito de arrependimento vale igual pra qualquer produto online, peça íntima incluída. Isso não é achismo meu — é uma área genuinamente disputada na Justiça brasileira.</div>
   <div class="explain">A prática mais segura, usada por lojas reais de lingerie no Brasil, é: aceitar arrependimento <b>somente se a peça estiver lacrada, com etiqueta intacta e sem sinal de uso</b>; recusar se houver qualquer indício de que foi vestida ou lavada. Isso não é abusivo — é a linha que a própria Justiça já validou como razoável. O que protege você de verdade é deixar essa condição escrita e visível <b>antes</b> da compra, não inventada depois que o cliente reclama.</div>
+</div>
+
+</section>
+
+
+<section class="doc-section" id="processo-devolucao-fisica">
+
+<div class="card">
+  <h2><span class="tag">PROCESSO</span> Como a devolução física acontece de verdade</h2>
+  <p class="sub">Baseado no fluxo confirmado do TikTok Shop — corrigindo algumas suposições da pergunta anterior.</p>
+
+  <div class="explain">Você não cria etiqueta nenhuma pra devolução, e não existe "cancelar o envio antigo pra valer o novo". Cancelamento e devolução são duas coisas diferentes dentro do sistema: cancelamento só existe <b>antes</b> do produto ser enviado. Depois que já foi entregue, vira devolução — um processo próprio, com seu próprio código de rastreio.</div>
+
+  <div class="rule"><span class="rnum">1</span>O cliente é quem solicita a devolução pelo próprio app, informando o motivo.</div>
+  <div class="rule"><span class="rnum">2</span>O sistema gera automaticamente um código de logística reversa e uma etiqueta — isso não sai da sua conta de vendedor, sai da solicitação do cliente.</div>
+  <div class="rule"><span class="rnum">3</span>O cliente leva o pacote até uma agência dos Correios (é o modelo de logística reversa que o TikTok Shop usa hoje) — não é alguém da transportadora indo buscar na casa dele.</div>
+  <div class="rule"><span class="rnum">4</span>O pacote volta até você. A partir do recebimento, você tem até 2 dias úteis pra inspecionar e aprovar o reembolso ou contestar a devolução.</div>
+
+  <div class="warn">Alerta recente e específico: desde 06/04/2026, os Correios passaram a exigir uma Declaração de Conteúdo Eletrônica (DCE) vinculada à etiqueta de devolução. Já apareceram casos de clientes impedidos de devolver porque a etiqueta gerada pela plataforma não veio com essa declaração corretamente vinculada. Se isso acontecer, o caminho é abrir chamado tanto com o suporte do TikTok Shop quanto registrar o problema — não é algo que você resolve sozinho na ponta.</div>
+
+  <div class="explain">Sobre quem paga o frete da devolução: em geral, o custo do frete de volta fica com o vendedor ou com a plataforma, conforme a diretriz aplicável ao motivo da devolução — não costuma ser cobrado do cliente. Isso faz sentido pra devolução por defeito ou erro de envio; pra arrependimento, a lei também aponta nessa direção (reembolso integral inclui os valores pagos, o que a jurisprudência majoritária interpreta como incluindo o frete).</div>
+</div>
+
+</section>
+
+<section class="doc-section" id="reembolso-financeiro-plataforma">
+
+<div class="card">
+  <h2><span class="tag">DINHEIRO</span> Como funciona o reembolso — sim, sai do seu saldo</h2>
+  <p class="sub">A plataforma funciona como intermediária financeira, não como uma "seguradora" que reembolsa com dinheiro próprio.</p>
+
+  <div class="explain">A resposta direta à sua pergunta: sim. A plataforma retém ou desconta o valor do seu saldo de vendedor dentro do sistema, e credita o cliente de volta no mesmo método de pagamento que ele usou na compra. Não é a plataforma "gastando dinheiro dela" — é uma dedução na sua conta dentro do próprio TikTok Shop.</div>
+
+  <div class="rule"><span class="rnum">1</span>Lembra que o repasse da venda só cai no seu saldo depois que o cliente confirma o recebimento? Se a devolução for pedida logo depois da entrega, é bem possível que esse valor nem tenha sido liberado ainda — nesse caso, o reembolso simplesmente cancela a liberação, sem precisar tirar de nenhum outro lugar.</div>
+  <div class="rule"><span class="rnum">2</span>Se o valor já estiver disponível no seu saldo, o desconto acontece diretamente ali.</div>
+  <div class="rule"><span class="rnum">3</span>O cliente recebe de volta no mesmo método de pagamento usado na compra — cartão, Pix, o que tiver sido.</div>
+
+  <div class="warn">Isso significa que seu fluxo de caixa precisa considerar que uma venda "concluída" ainda pode ser revertida dentro da janela de devolução — não é dinheiro 100% garantido até passar o prazo de arrependimento e de inspeção de defeito.</div>
 </div>
 
 </section>
@@ -1343,26 +872,6 @@
   </main>
 </div>
 
-<script>
-  const toggle = document.querySelector('.menu-toggle');
-  const body = document.body;
-  const sidebarLinks = document.querySelectorAll('.sidebar a');
-
-  if (toggle) {
-    toggle.addEventListener('click', () => {
-      const open = body.classList.toggle('menu-open');
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-    });
-  }
-
-  sidebarLinks.forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 980) {
-        body.classList.remove('menu-open');
-        toggle && toggle.setAttribute('aria-expanded', 'false');
-      }
-    });
-  });
-</script>
+<script src="script.js"></script>
 </body>
 </html>
