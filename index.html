@@ -57,6 +57,7 @@
       <div class="nav-title">Precificação</div>
       <nav>
         <ul class="nav-list">
+          <li><a href="#calculadora-preco">Calculadora de preço</a></li>
           <li><a href="#formula-precificacao">Fórmula de precificação</a></li>
           <li><a href="#custos-por-plataforma">Custos por plataforma</a></li>
           <li><a href="#exemplos-precificacao">Exemplos calculados</a></li>
@@ -447,6 +448,80 @@
           <h1>Precificação</h1>
           
         </header>
+
+
+
+        <section class="doc-section" id="calculadora-preco">
+ 
+<div class="card">
+  <h2><span class="tag">CALCULADORA</span> TikTok Shop</h2>
+  <p class="sub">Preencha os campos abaixo — o preço sugerido recalcula sozinho a cada mudança. Digite os números com ponto, não vírgula (ex: 5.50).</p>
+ 
+  <div class="calc-presets">
+    <button type="button" class="calc-preset-btn" onclick="aplicarPreset('ts', 2, 0)">Período promocional (0%)</button>
+    <button type="button" class="calc-preset-btn" onclick="aplicarPreset('ts', 2, 12)">Taxa cheia (12%)</button>
+  </div>
+ 
+  <div class="calc-grid">
+    <div class="calc-field"><label>Custo da peça (R$)</label><input type="number" id="ts-custo" value="5" step="0.01" oninput="calcular('ts')"></div>
+    <div class="calc-field"><label>Embalagem (R$)</label><input type="number" id="ts-embalagem" value="1" step="0.01" oninput="calcular('ts')"></div>
+    <div class="calc-field"><label>Taxa fixa (R$)</label><input type="number" id="ts-taxafixa" value="2" step="0.01" oninput="calcular('ts')"></div>
+    <div class="calc-field"><label>Taxa percentual (%)</label><input type="number" id="ts-taxaperc" value="12" step="0.1" oninput="calcular('ts')"></div>
+    <div class="calc-field" style="grid-column:1/-1;"><label>Lucro líquido que você quer (R$)</label><input type="number" id="ts-lucro" value="15" step="0.01" oninput="calcular('ts')"></div>
+  </div>
+ 
+  <div class="calc-result">
+    <div class="label">Preço de venda sugerido</div>
+    <div class="price" id="ts-preco">R$ 0,00</div>
+  </div>
+ 
+  <table class="calc-breakdown">
+    <tr><td>Custo da peça</td><td class="v" id="ts-out-custo">R$ 0,00</td></tr>
+    <tr><td>Embalagem</td><td class="v" id="ts-out-embalagem">R$ 0,00</td></tr>
+    <tr><td>Taxa fixa</td><td class="v" id="ts-out-taxafixa">R$ 0,00</td></tr>
+    <tr><td>Taxa percentual</td><td class="v" id="ts-out-taxaperc">R$ 0,00</td></tr>
+    <tr class="total"><td><b>Lucro líquido</b></td><td class="v" id="ts-out-lucro">R$ 0,00</td></tr>
+    <tr><td>Margem sobre o preço de venda</td><td class="v" id="ts-out-margem">0%</td></tr>
+  </table>
+</div>
+ 
+<div class="card">
+  <h2><span class="tag">CALCULADORA</span> Mercado Livre</h2>
+  <p class="sub">A comissão do Mercado Livre varia por categoria (Clássico 10-14%, Premium 15-19%) — ajuste o campo de taxa percentual pra categoria real do seu produto quando for cadastrar.</p>
+ 
+  <div class="calc-presets">
+    <button type="button" class="calc-preset-btn" onclick="aplicarPreset('ml', 0, 12)">Clássico (~12%)</button>
+    <button type="button" class="calc-preset-btn" onclick="aplicarPreset('ml', 0, 17)">Premium (~17%)</button>
+  </div>
+ 
+  <div class="calc-grid">
+    <div class="calc-field"><label>Custo da peça (R$)</label><input type="number" id="ml-custo" value="5" step="0.01" oninput="calcular('ml')"></div>
+    <div class="calc-field"><label>Embalagem (R$)</label><input type="number" id="ml-embalagem" value="1" step="0.01" oninput="calcular('ml')"></div>
+    <div class="calc-field"><label>Taxa fixa / frete (R$)</label><input type="number" id="ml-taxafixa" value="0" step="0.01" oninput="calcular('ml')"></div>
+    <div class="calc-field"><label>Taxa percentual (%)</label><input type="number" id="ml-taxaperc" value="12" step="0.1" oninput="calcular('ml')"></div>
+    <div class="calc-field" style="grid-column:1/-1;"><label>Lucro líquido que você quer (R$)</label><input type="number" id="ml-lucro" value="15" step="0.01" oninput="calcular('ml')"></div>
+  </div>
+ 
+  <div class="calc-result">
+    <div class="label">Preço de venda sugerido</div>
+    <div class="price" id="ml-preco">R$ 0,00</div>
+  </div>
+ 
+  <table class="calc-breakdown">
+    <tr><td>Custo da peça</td><td class="v" id="ml-out-custo">R$ 0,00</td></tr>
+    <tr><td>Embalagem</td><td class="v" id="ml-out-embalagem">R$ 0,00</td></tr>
+    <tr><td>Taxa fixa / frete</td><td class="v" id="ml-out-taxafixa">R$ 0,00</td></tr>
+    <tr><td>Taxa percentual</td><td class="v" id="ml-out-taxaperc">R$ 0,00</td></tr>
+    <tr class="total"><td><b>Lucro líquido</b></td><td class="v" id="ml-out-lucro">R$ 0,00</td></tr>
+    <tr><td>Margem sobre o preço de venda</td><td class="v" id="ml-out-margem">0%</td></tr>
+  </table>
+</div>
+ 
+</section>
+
+
+
+
        <section class="doc-section" id="formula-precificacao">
 
 <div class="card">
