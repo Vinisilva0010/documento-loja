@@ -19,6 +19,27 @@ const toggle = document.querySelector('.menu-toggle');
   });
 
 
+  
+const backToTopBtn = document.getElementById('backToTop');
+
+if (backToTopBtn) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 300) {
+      backToTopBtn.classList.add('show');
+    } else {
+      backToTopBtn.classList.remove('show');
+    }
+  });
+
+  backToTopBtn.addEventListener('click', () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+}
+
+
 
 function aplicarPreset(prefix, taxaFixa, taxaPerc) {
   document.getElementById(prefix + '-taxafixa').value = taxaFixa;
@@ -54,3 +75,5 @@ function calcular(prefix) {
  
 calcular('ts');
 calcular('ml');
+
+

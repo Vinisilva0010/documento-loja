@@ -790,3 +790,38 @@
   background: var(--highlight-soft);
   color: var(--royal-deep);
 }
+
+
+/* Botão Voltar ao Topo */
+.back-to-top {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  background: var(--royal-deep);
+  color: var(--highlight);
+  border: 2px solid #fff;
+  border-radius: 10px;
+  font-size: 20px;
+  font-weight: 900;
+  cursor: pointer;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background: var(--royal);
+  color: #fff;
+}
