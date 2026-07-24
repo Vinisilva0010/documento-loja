@@ -158,6 +158,14 @@
       <li><a href="#vale-conhecer">Kwai Shop</a></li>
     </ul>
   </details>
+
+
+  <details class="index-group">
+    <summary>5. Sistema de Automação (Futuro)</summary>
+    <ul>
+      <li><a href="#sistema-automacao">Como Funciona o Sistema</a></li>
+    </ul>
+  </details>
 </div>
 
     <div class="wrap">
@@ -1002,6 +1010,514 @@
 </section>
 
 
+
+
+<section class="doc-section" id="sistema-automacao">
+  <div class="card">
+    <h2><span class="tag">FUTURO</span> Sistema de Controle e Automação da Operação</h2>
+    <p class="sub">Como a tecnologia vai trabalhar para a equipe no dia a dia — sem complicação visual.</p>
+
+    <div class="explain">
+      <b>Regra de Ouro do Sistema:</b> Construir somente após a primeira venda real acontecer. O objetivo é dar controle visual absoluto para quem gerencia a loja e alertas automáticos via Telegram para a equipe de campo (quem busca peça, embala e posta), sem ninguém precisar preencher planilha manual ou aprender sistemas difíceis.
+    </div>
+
+    <!-- DIAGRAMA VISUAL DE COMO FUNCIONA -->
+    <div class="example">
+      <div class="title">Fluxo Geral de Funcionamento</div>
+      <pre style="font-family: monospace; font-size: 12px; line-height: 1.4; overflow-x: auto; color: var(--royal-deep);">
++------------------+      +-------------------+      +--------------------+
+|  TikTok / Shopee | ---> |  Central do Vendedor| ---> |   Bot no Telegram  |
+|  (Cliente Compra)|      |  (Sua Tela Web)   |      | (Avisos pra Equipe)|
++------------------+      +-------------------+      +--------------------+
+                                    |
+                                    v
+                          +-------------------+
+                          | Trava de Estoque  |
+                          | (Evita duplicar)  |
+                          +-------------------+
+      </pre>
+    </div>
+
+    <h3>1. Como Funciona para Cada Pessoa no Dia a Dia</h3>
+    
+    <div class="platform">
+      <h3>Para Você (Visão Gerencial no Painel Web)</h3>
+      <ul>
+        <li><b>Visão de Margem Real:</b> O sistema calcula sozinho quanto sobrou no bolso em cada venda, já descontando taxa da plataforma, custo da peça e embalagem.</li>
+        <li><b>Termômetro do MEI:</b> Uma barra visual mostra o faturamento acumulado no ano. Quando bate 65%, 75% e 90% do teto, a tela avisa que é hora de preparar a migração para ME com o contador.</li>
+        <li><b>Estoque Real Sincronizado:</b> Peça vendida em um canal é travada nos outros na mesma hora, acabando com o risco de vender o que não tem no estoque.</li>
+      </ul>
+    </div>
+
+    <div class="platform">
+      <h3>Para a Equipe (Avisos pelo Telegram)</h3>
+      <ul>
+        <li><b>Aviso de Venda:</b> Apita no celular na hora com o nome da peça e o prazo final de postagem (ex: "Enviar até amanhã às 16h").</li>
+        <li><b>Botões de Ação Direta:</b> Botão no próprio chat para clicar e avisar "Peça Embalada" ou "Pacote Postado" — sem precisar abrir site ou aplicativo extra.</li>
+        <li><b>Consultas Rápida por Comando:</b> Digitar <code>/hoje</code> para ver total vendido no dia, ou <code>/estoque</code> para saber o que tem no galpão.</li>
+      </ul>
+    </div>
+
+    <!-- DIAGRAMA DO FLUXO DE PEDIDO -->
+    <div class="example">
+      <div class="title">Jornada de um Pedido (Do Click à Coleta)</div>
+      <pre style="font-family: monospace; font-size: 12.5px; line-height: 1.4; overflow-x: auto; color: #222;">
+[1. Compra Caiu]  --> Sistema puxa da plataforma e envia mensagem no Telegram.
+[2. Separação]   --> Equipe busca a peça no estoque e confirma pelo celular.
+[3. Embalagem]   --> Imprime a etiqueta térmica e clica em [Embalado].
+[4. Coleta/Drop] --> Transportadora retira ou equipe leva ao ponto. Venda concluída.
+      </pre>
+    </div>
+
+    <h3>2. As Fases de Construção do Sistema</h3>
+    
+    <div class="rule"><span class="rnum">1</span><b>Fundação e Conexão:</b> Conectar o sistema com a loja oficial e validar que os dados de teste chegam sem erros.</div>
+    <div class="rule"><span class="rnum">2</span><b>Controle de Estoque Anti-Erro:</b> Criar a regra onde uma peça só entra como "disponível" quando alguém confirma fisicamente que ela está separada no galpão.</div>
+    <div class="rule"><span class="rnum">3</span><b>Painel de Lucro e MEI:</b> Exibir os gráficos de margem real por produto e o contador regressivo de limite de faturamento do MEI.</div>
+    <div class="rule"><span class="rnum">4</span><b>Bot Notificador no Telegram:</b> Ativar o robô de mensagens para mandar avisos e receber confirmações da equipe no celular.</div>
+    <div class="rule"><span class="rnum">5</span><b>Multi-plataformas:</b> Expandir a mesma automação para Shopee e Mercado Livre.</div>
+
+    <div class="warn">
+      <b>Aviso Importante de Escopo:</b> Recursos avançados como Previsão de Vendas por Inteligência Artificial só serão implementados após 4 a 6 meses de operação rodando, quando houver dados reais suficientes para analisar.
+    </div>
+  </div>
+
+  <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Central de Operações — Loja OS</title>
+  <style>
+    :root {
+      --color-background: #ffffff;
+      --color-foreground: #000000;
+      --color-royal: #1a2f8f;
+      --color-royal-deep: #0d1c52;
+      --color-accent: #facc15;
+      --color-accent-hover: #fbbf24;
+      --color-muted: #f4f4f5;
+      --color-muted-foreground: #3f3f46;
+      --color-border: #000000;
+      --color-red: #ef4444;
+      --color-green: #22c55e;
+      --radius: 0px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, monospace;
+    }
+
+    body {
+      background-color: var(--color-royal);
+      color: var(--color-foreground);
+      padding: 24px 16px;
+      line-height: 1.4;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* HEADER BRUTALISTA */
+    header {
+      background: var(--color-background);
+      border: 3px solid var(--color-border);
+      box-shadow: 6px 6px 0px var(--color-border);
+      padding: 20px;
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-title {
+      font-size: 22px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: -0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .badge-status {
+      background: var(--color-green);
+      color: #000;
+      font-size: 11px;
+      font-weight: 900;
+      padding: 4px 8px;
+      border: 2px solid var(--color-border);
+      text-transform: uppercase;
+    }
+
+    .user-info {
+      font-weight: 800;
+      font-size: 13px;
+      background: var(--color-accent);
+      padding: 6px 12px;
+      border: 2px solid var(--color-border);
+      box-shadow: 2px 2px 0px var(--color-border);
+    }
+
+    /* GRID PRINCIPAL */
+    .grid-layout {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+
+    .col-12 { grid-column: span 12; }
+    .col-8 { grid-column: span 8; }
+    .col-4 { grid-column: span 4; }
+
+    @media (max-width: 900px) {
+      .col-8, .col-4 { grid-column: span 12; }
+    }
+
+    /* CARDS BRUTALISTAS */
+    .b-card {
+      background: var(--color-background);
+      border: 3px solid var(--color-border);
+      box-shadow: 6px 6px 0px var(--color-border);
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+
+    .b-card h2 {
+      font-size: 16px;
+      font-weight: 900;
+      text-transform: uppercase;
+      border-bottom: 3px solid var(--color-border);
+      padding-bottom: 10px;
+      margin-bottom: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    /* METRICAS KPI */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .kpi-box {
+      background: var(--color-muted);
+      border: 3px solid var(--color-border);
+      padding: 16px;
+      box-shadow: 4px 4px 0px var(--color-border);
+    }
+
+    .kpi-box .label {
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: var(--color-muted-foreground);
+    }
+
+    .kpi-box .value {
+      font-size: 26px;
+      font-weight: 900;
+      margin: 6px 0;
+    }
+
+    .kpi-box .sub {
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .kpi-accent {
+      background: var(--color-accent);
+    }
+
+    /* BARRA DE PROGRESSO MEI */
+    .progress-wrapper {
+      margin-top: 10px;
+    }
+
+    .progress-bar-bg {
+      background: var(--color-muted);
+      border: 3px solid var(--color-border);
+      height: 28px;
+      width: 100%;
+      position: relative;
+    }
+
+    .progress-bar-fill {
+      background: var(--color-accent);
+      height: 100%;
+      width: 68%; /* MOCK: 68% do teto */
+      border-right: 3px solid var(--color-border);
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      font-weight: 900;
+      font-size: 12px;
+    }
+
+    .mei-markers {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      font-weight: 800;
+      margin-top: 6px;
+      text-transform: uppercase;
+    }
+
+    /* TABELA BRUTALISTA */
+    .table-container {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      border: 2px solid var(--color-border);
+      padding: 10px 12px;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    th {
+      background: var(--color-foreground);
+      color: var(--color-background);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+    }
+
+    tr:nth-child(even) {
+      background: var(--color-muted);
+    }
+
+    .tag-status {
+      display: inline-block;
+      padding: 2px 6px;
+      border: 2px solid var(--color-border);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .tag-pago { background: var(--color-green); color: #000; }
+    .tag-pendente { background: var(--color-accent); color: #000; }
+
+    /* MOCK TELEGRAM BOT */
+    .telegram-card {
+      background: #111;
+      color: #fff;
+      border: 3px solid var(--color-border);
+      box-shadow: 6px 6px 0px var(--color-border);
+      padding: 16px;
+      font-family: monospace;
+    }
+
+    .telegram-header {
+      background: #222;
+      padding: 8px 12px;
+      border: 2px solid #444;
+      font-weight: 900;
+      font-size: 12px;
+      color: var(--color-accent);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .chat-msg {
+      background: #222;
+      border-left: 4px solid var(--color-accent);
+      padding: 10px;
+      margin-bottom: 10px;
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .chat-btn {
+      display: block;
+      width: 100%;
+      background: var(--color-accent);
+      color: #000;
+      border: 2px solid var(--color-border);
+      padding: 8px;
+      font-weight: 900;
+      text-align: center;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 11px;
+      margin-top: 6px;
+      cursor: pointer;
+    }
+
+    .chat-btn:hover {
+      background: var(--color-accent-hover);
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="brand-title">
+      Loja OS <span class="badge-status">v1.0 Mock</span>
+    </div>
+    <div class="user-info">
+      OPERAÇÃO: REVENDA MODA FEMININA
+    </div>
+  </header>
+
+  <!-- METRICAS DE TOPO -->
+  <div class="kpi-grid">
+    <div class="kpi-box kpi-accent">
+      <div class="label">Vendas Hoje</div>
+      <div class="value">R$ 1.240,00</div>
+      <div class="sub">14 Pedidos processados</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Margem Líquida Média</div>
+      <div class="value">R$ 16,80 /peça</div>
+      <div class="sub">Lucro real descontado taxas</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Pendente de Coleta</div>
+      <div class="value">8 Pacotes</div>
+      <div class="sub">Janela max: 24h restantes</div>
+    </div>
+    <div class="kpi-box">
+      <div class="label">Estoque Crítico</div>
+      <div class="value" style="color: var(--color-red);">2 Itens</div>
+      <div class="sub">Curva A perto de esgotar</div>
+    </div>
+  </div>
+
+  <div class="grid-layout">
+    
+    <!-- COLUNA DA ESQUERDA (PRINCIPAL) -->
+    <div class="col-8">
+      
+      <!-- CONTROLE DE TETO MEI -->
+      <div class="b-card">
+        <h2>
+          <span>Termômetro de Faturamento MEI (2026)</span>
+          <span class="tag-status tag-pendente">Atenção: 68%</span>
+        </h2>
+        <p style="font-size: 13px; font-weight: 700; margin-bottom: 8px;">
+          Faturamento Acumulado no Ano: <b>R$ 55.080,00</b> de R$ 81.000,00
+        </p>
+        <div class="progress-wrapper">
+          <div class="progress-bar-bg">
+            <div class="progress-bar-fill">68%</div>
+          </div>
+          <div class="mei-markers">
+            <span>R$ 0</span>
+            <span>65% (Gatilho)</span>
+            <span>75% (Migração)</span>
+            <span>100% (R$ 81k)</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TABELA DE ULTIMOS PEDIDOS -->
+      <div class="b-card">
+        <h2>Últimos Pedidos (Sincronização TikTok Shop)</h2>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>ID Pedido</th>
+                <th>Item / Modelo</th>
+                <th>Valor</th>
+                <th>Margem Real</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>#TK-9082</td>
+                <td>Vestido Midi Linho - M</td>
+                <td>R$ 38,00</td>
+                <td style="color: var(--color-green); font-weight: 900;">+ R$ 17,40</td>
+                <td><span class="tag-status tag-pago">Pronto p/ Coleta</span></td>
+              </tr>
+              <tr>
+                <td>#TK-9081</td>
+                <td>Conjunto Alfaiataria - G</td>
+                <td>R$ 65,00</td>
+                <td style="color: var(--color-green); font-weight: 900;">+ R$ 28,10</td>
+                <td><span class="tag-status tag-pendente">Pendente Separação</span></td>
+              </tr>
+              <tr>
+                <td>#TK-9080</td>
+                <td>Blusa Seda Pura - P</td>
+                <td>R$ 29,90</td>
+                <td style="color: var(--color-green); font-weight: 900;">+ R$ 12,20</td>
+                <td><span class="tag-status tag-pago">Pronto p/ Coleta</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- COLUNA DA DIREITA (TELEGRAM E ESTOQUE) -->
+    <div class="col-4">
+      
+      <!-- SIMULAÇÃO DO TELEGRAM BOT -->
+      <div class="telegram-card">
+        <div class="telegram-header">
+          <span>🤖 Loja BOT (TELEGRAM)</span>
+        </div>
+        
+        <div class="chat-msg">
+          <b>🔔 NOVO PEDIDO #TK-9081</b><br>
+          1x Conjunto Alfaiataria (G)<br>
+          ⏱️ Prazo despacho: Amanhã às 16h<br>
+          <i>Aguardando separação física...</i>
+        </div>
+
+        <button class="chat-btn">Confirmar Separação [Clique]</button>
+        <button class="chat-btn" style="background: #fff; margin-top: 4px;">Imprimir Etiqueta</button>
+      </div>
+
+      <!-- TRAVA DE ESTOQUE FISICO -->
+      <div class="b-card" style="margin-top: 20px;">
+        <h2>Trava Anti-Duplicação</h2>
+        <p style="font-size: 12px; font-weight: 700; margin-bottom: 10px;">
+          Peças pendentes de verificação física no galpão antes de liberar nos anúncios:
+        </p>
+        <div style="border: 2px solid var(--color-border); padding: 8px; background: var(--color-muted); margin-bottom: 6px; font-size: 12px; font-weight: 800;">
+          📦 Regata Ribana (Preta) — 5 un.<br>
+          <span style="color: var(--color-red); font-size: 10px;">AGUARDANDO CONTAGEM</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
+</section>
 
 
 
